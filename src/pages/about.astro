@@ -1,0 +1,20 @@
+---
+import Layout from '../layouts/BlogPost.astro';
+import { contentfulClient } from '../lib/contentful';
+
+const entries = await contentfulClient.getEntries<any>({
+  content_type: 'blogPost',
+});
+const jsonified = JSON.stringify(entries, undefined, 2);
+---
+
+<Layout
+  title="About Me"
+  description="Lorem ipsum dolor sit amet"
+  pubDate={new Date('August 08 2021')}
+  heroImage="/blog-placeholder-about.jpg"
+>
+  <div>json below</div>
+  <pre style="font-size: .5rem">{jsonified}</pre>
+  <div>json above</div>
+</Layout>
