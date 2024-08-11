@@ -1,0 +1,38 @@
+---
+import type { GetStaticPaths } from "astro";
+import { documentToHtmlString } from "@contentful/rich-text-html-renderer";
+import Layout from "../layouts/BlogLayout.astro";
+import { contentfulClient } from "../lib/contentful";
+
+import type { PageContentSkeleton, Locales } from "../types";
+
+export async function getStaticPaths() {
+  const entries = await contentfulClient.getEntries<PageContentSkeleton>({
+    content_type: "pageContent",
+  });
+  return (
+    entries.items.map((item) => ({
+      params: { slug: item.fields.slug },
+    })) || []
+  );
+}
+
+const { slug } = Astro.params;
+const entries = await contentfulClient.getEntries<PageContentSkeleton>({
+  content_type: "pageContent",
+  "fields.slug": slug,
+});
+const entry = await contentfulClient.getEntry<PageContentSkeleton, Locales>(
+  entries.items[0].sys.id
+);
+const content = documentToHtmlString(entry.fields.content);
+---
+
+<Layout
+  title={entry.fields.title}
+  description="Lorem ipsum dolor sit amet"
+  pubDate={new Date(entry.sys.createdAt)}
+>
+  <h1>{entry.fields.title}</h1>
+  <div set:html={content} />
+</Layout>

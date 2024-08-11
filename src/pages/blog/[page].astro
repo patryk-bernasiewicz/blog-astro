@@ -1,4 +1,145 @@
 ---
-export async function getStaticPaths({ paginate })
+import type {
+  InferGetStaticParamsType,
+  InferGetStaticPropsType,
+  GetStaticPaths,
+} from "astro";
 
+import Layout from "../../layouts/BlogLayout.astro";
+import { contentfulClient } from "../../lib/contentful";
+import type { BlogPostSkeleton } from "../../types";
+import { BLOG_PAGE_SIZE } from "../../consts";
+import Pagination from "../../components/Pagination.astro";
+
+export const getStaticPaths = (async ({ paginate }) => {
+  const entries = await contentfulClient.getEntries<BlogPostSkeleton>({
+    content_type: "blogPost",
+  });
+
+  return paginate(entries.items, { pageSize: BLOG_PAGE_SIZE });
+}) satisfies GetStaticPaths;
+
+type Params = InferGetStaticParamsType<typeof getStaticPaths>;
+type Props = InferGetStaticPropsType<typeof getStaticPaths>;
+
+const { title, page } = Astro.props as Props;
 ---
+
+<Layout>
+  <h1>{title}</h1>
+  <div>
+    Lorem ipsum dolor sit amet consectetur adipisicing elit. Deleniti aliquam
+    quam ipsam dolorem dolores et, natus corrupti? Iure voluptate,
+    exercitationem voluptas obcaecati officia corrupti sunt optio at consequatur
+    dolore doloremque.
+  </div>
+  <div>
+    Lorem ipsum dolor sit amet consectetur adipisicing elit. Deleniti aliquam
+    quam ipsam dolorem dolores et, natus corrupti? Iure voluptate,
+    exercitationem voluptas obcaecati officia corrupti sunt optio at consequatur
+    dolore doloremque.
+  </div>
+  <div>
+    Lorem ipsum dolor sit amet consectetur adipisicing elit. Deleniti aliquam
+    quam ipsam dolorem dolores et, natus corrupti? Iure voluptate,
+    exercitationem voluptas obcaecati officia corrupti sunt optio at consequatur
+    dolore doloremque.
+  </div>
+  <div>
+    Lorem ipsum dolor sit amet consectetur adipisicing elit. Deleniti aliquam
+    quam ipsam dolorem dolores et, natus corrupti? Iure voluptate,
+    exercitationem voluptas obcaecati officia corrupti sunt optio at consequatur
+    dolore doloremque.
+  </div>
+  <div>
+    Lorem ipsum dolor sit amet consectetur adipisicing elit. Deleniti aliquam
+    quam ipsam dolorem dolores et, natus corrupti? Iure voluptate,
+    exercitationem voluptas obcaecati officia corrupti sunt optio at consequatur
+    dolore doloremque.
+  </div>
+  <div>
+    Lorem ipsum dolor sit amet consectetur adipisicing elit. Deleniti aliquam
+    quam ipsam dolorem dolores et, natus corrupti? Iure voluptate,
+    exercitationem voluptas obcaecati officia corrupti sunt optio at consequatur
+    dolore doloremque.
+  </div>
+  <div>
+    Lorem ipsum dolor sit amet consectetur adipisicing elit. Deleniti aliquam
+    quam ipsam dolorem dolores et, natus corrupti? Iure voluptate,
+    exercitationem voluptas obcaecati officia corrupti sunt optio at consequatur
+    dolore doloremque.
+  </div>
+  <div>
+    Lorem ipsum dolor sit amet consectetur adipisicing elit. Deleniti aliquam
+    quam ipsam dolorem dolores et, natus corrupti? Iure voluptate,
+    exercitationem voluptas obcaecati officia corrupti sunt optio at consequatur
+    dolore doloremque.
+  </div>
+  <div>
+    Lorem ipsum dolor sit amet consectetur adipisicing elit. Deleniti aliquam
+    quam ipsam dolorem dolores et, natus corrupti? Iure voluptate,
+    exercitationem voluptas obcaecati officia corrupti sunt optio at consequatur
+    dolore doloremque.
+  </div>
+  <div>
+    Lorem ipsum dolor sit amet consectetur adipisicing elit. Deleniti aliquam
+    quam ipsam dolorem dolores et, natus corrupti? Iure voluptate,
+    exercitationem voluptas obcaecati officia corrupti sunt optio at consequatur
+    dolore doloremque.
+  </div>
+  <div>
+    Lorem ipsum dolor sit amet consectetur adipisicing elit. Deleniti aliquam
+    quam ipsam dolorem dolores et, natus corrupti? Iure voluptate,
+    exercitationem voluptas obcaecati officia corrupti sunt optio at consequatur
+    dolore doloremque.
+  </div>
+  <div>
+    Lorem ipsum dolor sit amet consectetur adipisicing elit. Deleniti aliquam
+    quam ipsam dolorem dolores et, natus corrupti? Iure voluptate,
+    exercitationem voluptas obcaecati officia corrupti sunt optio at consequatur
+    dolore doloremque.
+  </div>
+  <div>
+    Lorem ipsum dolor sit amet consectetur adipisicing elit. Deleniti aliquam
+    quam ipsam dolorem dolores et, natus corrupti? Iure voluptate,
+    exercitationem voluptas obcaecati officia corrupti sunt optio at consequatur
+    dolore doloremque.
+  </div>
+  <div>
+    Lorem ipsum dolor sit amet consectetur adipisicing elit. Deleniti aliquam
+    quam ipsam dolorem dolores et, natus corrupti? Iure voluptate,
+    exercitationem voluptas obcaecati officia corrupti sunt optio at consequatur
+    dolore doloremque.
+  </div>
+  <div>
+    Lorem ipsum dolor sit amet consectetur adipisicing elit. Deleniti aliquam
+    quam ipsam dolorem dolores et, natus corrupti? Iure voluptate,
+    exercitationem voluptas obcaecati officia corrupti sunt optio at consequatur
+    dolore doloremque.
+  </div>
+  <div>
+    Lorem ipsum dolor sit amet consectetur adipisicing elit. Deleniti aliquam
+    quam ipsam dolorem dolores et, natus corrupti? Iure voluptate,
+    exercitationem voluptas obcaecati officia corrupti sunt optio at consequatur
+    dolore doloremque.
+  </div>
+  <div>
+    Lorem ipsum dolor sit amet consectetur adipisicing elit. Deleniti aliquam
+    quam ipsam dolorem dolores et, natus corrupti? Iure voluptate,
+    exercitationem voluptas obcaecati officia corrupti sunt optio at consequatur
+    dolore doloremque.
+  </div>
+  <div>
+    Lorem ipsum dolor sit amet consectetur adipisicing elit. Deleniti aliquam
+    quam ipsam dolorem dolores et, natus corrupti? Iure voluptate,
+    exercitationem voluptas obcaecati officia corrupti sunt optio at consequatur
+    dolore doloremque.
+  </div>
+  <div>
+    Lorem ipsum dolor sit amet consectetur adipisicing elit. Deleniti aliquam
+    quam ipsam dolorem dolores et, natus corrupti? Iure voluptate,
+    exercitationem voluptas obcaecati officia corrupti sunt optio at consequatur
+    dolore doloremque.
+  </div>
+  <Pagination current={page.currentPage} total={page.lastPage} />
+</Layout>

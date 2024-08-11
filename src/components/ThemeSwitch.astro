@@ -1,0 +1,74 @@
+---
+import { Icon } from "astro-icon/components";
+
+import cloudsImage from "../images/theme-toggle-clouds.jpg";
+import starryImage from "../images/theme-toggle-starry.jpg";
+---
+
+<label
+  class="select-none opacity-75 hover:opacity-100 focus-within:opacity-100 transition-opacity focus-within:ring-4 focus-within:ring-primary box-content cursor-pointer flex relative rounded-full overflow-hidden border bg-blue-500 border-brandGray-400 w-12 h-5"
+>
+  <div
+    class={`absolute left-0 top-0 w-full h-5 flex items-center justify-evenly z-0`}
+  >
+    <Icon
+      name="moon"
+      class="origin-[64px_0px] z-10 w-4 [&_path]:fill-yellow-200 transition-transform duration-1000 -rotate-45 dark:rotate-0"
+    />
+    <Icon
+      name="sun"
+      class="origin-[-64px_0px] z-10 w-4 [&_path]:fill-yellow-300 transition-transform duration-1000 rotate-0 dark:rotate-45"
+    />
+    <div
+      class="absolute w-full h-full opacity-100 dark:opacity-0 transition-opacity duration-1000"
+      style={`background-image: url(${cloudsImage.src}); background-size: cover;`}
+    >
+    </div>
+    <div
+      class="absolute w-full h-full opacity-0 dark:opacity-100 transition-opacity duration-1000"
+      style={`background-image: url(${starryImage.src}); background-size: cover;`}
+    >
+    </div>
+  </div>
+  <input
+    type="checkbox"
+    name="theme"
+    id="theme-switch"
+    class="overflow-hidden w-0 h-0 [&+div]:translate-y-[2px] [&+div]:translate-x-[2px] [&:checked+div]:translate-x-[28px]"
+  />
+  <div
+    class={`w-4 h-4 rounded-full flex items-center justify-center transition-transform duration-500 delay-100 z-10
+      bg-gradient-to-t from-brandGray-300 to-brandGray-200 dark:bg-brandGray-400 dark:shadow`}
+  >
+  </div>
+</label>
+<script>
+  (() => {
+    const themeSwitch = document.getElementById(
+      "theme-switch"
+    ) as HTMLInputElement;
+
+    if (themeSwitch) {
+      if (
+        localStorage.theme === "dark" ||
+        (!("theme" in localStorage) &&
+          window.matchMedia("(prefers-color-scheme: dark)").matches)
+      ) {
+        themeSwitch.checked = true;
+        localStorage.setItem("theme", "dark");
+        document.documentElement.classList.add("dark");
+      }
+
+      themeSwitch.addEventListener("change", () => {
+        console.log("===== THEME CHANGE =====", themeSwitch.checked);
+        if (themeSwitch.checked) {
+          document.documentElement.classList.add("dark");
+          localStorage.setItem("theme", "dark");
+        } else {
+          document.documentElement.classList.remove("dark");
+          localStorage.setItem("theme", "light");
+        }
+      });
+    }
+  })();
+</script>

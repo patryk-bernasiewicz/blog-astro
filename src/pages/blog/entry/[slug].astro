@@ -1,0 +1,41 @@
+---
+import type {
+  GetStaticPaths,
+  InferGetStaticParamsType,
+  InferGetStaticPropsType,
+} from "astro";
+import Layout from "../../../layouts/BlogLayout.astro";
+import type { BlogPostSkeleton } from "../../../types";
+import { contentfulClient } from "../../../lib/contentful";
+
+export const getStaticPaths = (async () => {
+  const entries = await contentfulClient.getEntries<BlogPostSkeleton>({
+    content_type: "blogPost",
+  });
+  return entries.items.map((item) => ({
+    params: { slug: item.fields.slug },
+    props: { title: item.fields.title },
+  }));
+}) satisfies GetStaticPaths;
+
+type Params = InferGetStaticParamsType<typeof getStaticPaths>;
+type Props = InferGetStaticPropsType<typeof getStaticPaths>;
+
+const { slug } = Astro.params;
+const { title } = Astro.props;
+---
+
+<Layout>
+  <div>
+    <button type="button" id="backButton">Back</button>
+    <pre>
+      {JSON.stringify({ slug, title }, null, 2)}
+    </pre>
+  </div>
+</Layout>
+
+<script>
+  document.getElementById("backButton")?.addEventListener("click", () => {
+    history.back();
+  });
+</script>
