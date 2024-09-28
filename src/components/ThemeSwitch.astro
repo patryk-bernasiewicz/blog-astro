@@ -1,8 +1,13 @@
 ---
 import { Icon } from "astro-icon/components";
 
-import cloudsImage from "../images/theme-toggle-clouds.jpg";
-import starryImage from "../images/theme-toggle-starry.jpg";
+import cloudsImage from "@images/theme-toggle-clouds.jpg";
+import starryImage from "@images/theme-toggle-starry.jpg";
+import { getLanguageFromUrl } from "@lib/getLanguageFromUrl";
+import { getTranslationsByLanguage } from "@i18n/utils";
+
+const userLanguage = getLanguageFromUrl(Astro.url);
+const translations = getTranslationsByLanguage(userLanguage);
 ---
 
 <label
@@ -29,6 +34,7 @@ import starryImage from "../images/theme-toggle-starry.jpg";
       style={`background-image: url(${starryImage.src}); background-size: cover;`}
     >
     </div>
+    <span class="sr-only">{translations.themeSwitch.LABEL}</span>
   </div>
   <input
     type="checkbox"
@@ -49,18 +55,7 @@ import starryImage from "../images/theme-toggle-starry.jpg";
     ) as HTMLInputElement;
 
     if (themeSwitch) {
-      if (
-        localStorage.theme === "dark" ||
-        (!("theme" in localStorage) &&
-          window.matchMedia("(prefers-color-scheme: dark)").matches)
-      ) {
-        themeSwitch.checked = true;
-        localStorage.setItem("theme", "dark");
-        document.documentElement.classList.add("dark");
-      }
-
       themeSwitch.addEventListener("change", () => {
-        console.log("===== THEME CHANGE =====", themeSwitch.checked);
         if (themeSwitch.checked) {
           document.documentElement.classList.add("dark");
           localStorage.setItem("theme", "dark");

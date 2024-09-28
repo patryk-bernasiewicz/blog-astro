@@ -30,8 +30,14 @@
     @apply text-lg;
   }
 
+  html,
   body {
-    --background: 
+    @apply flex flex-col grow min-h-full;
+  }
+
+  body,
+  [class*="dark:"] {
+    @apply transition-all delay-100 duration-150;
   }
 
   .container {

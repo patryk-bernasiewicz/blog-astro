@@ -1,0 +1,33 @@
+---
+import type { Page } from 'astro';
+import { getRelativeLocaleUrl } from 'astro:i18n';
+import type { Entry } from 'contentful';
+
+import Pagination from '@components/Pagination/Pagination.astro';
+import type { BlogPostSkeleton } from '@types';
+import { getLanguageFromUrl } from '@lib/getLanguageFromUrl';
+
+interface Props {
+  title?: string | unknown;
+  page: Page<Entry<BlogPostSkeleton, undefined, string>>;
+  entries: Entry<BlogPostSkeleton, undefined, string>[];
+}
+
+const { title, page, entries } = Astro.props;
+
+const userLanguage = getLanguageFromUrl(Astro.url);
+
+---
+
+{title && <h1>{title}</h1>}
+<ul class="flex flex-col gap-6 mb-2">
+  {entries.map((entry) => (
+    <li>
+      <a href={getRelativeLocaleUrl(userLanguage, `/blog/entry/${entry.fields.slug}`)} class="flex flex-col gap-2">
+        <h2 class="text-lg">{entry.fields.title}</h2>
+        <div>{entry.fields.excerpt}</div>
+      </a>
+    </li>
+  ))}
+</ul>
+<Pagination current={page.currentPage} total={page.lastPage} />

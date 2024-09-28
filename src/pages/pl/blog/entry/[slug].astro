@@ -8,12 +8,14 @@ import { BLOCKS, INLINES } from '@contentful/rich-text-types';
 
 import Layout from "@layouts/BlogLayout.astro";
 import { getSingleBlogEntryStaticPaths } from "@lib/pagesStaticPathsGenerators";
+import { Language } from "@types";
 
-export const getStaticPaths = getSingleBlogEntryStaticPaths();
+export const getStaticPaths = getSingleBlogEntryStaticPaths(Language.pl);
 
-// type Params = InferGetStaticParamsType<typeof getStaticPaths>;
+type Params = InferGetStaticParamsType<typeof getStaticPaths>;
 type Props = InferGetStaticPropsType<typeof getStaticPaths>;
 
+const { slug } = Astro.params;
 const { title, excerpt, body } = Astro.props;
 
 const options: Options = {

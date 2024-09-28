@@ -1,0 +1,20 @@
+---
+interface Props {
+  href: string;
+  text: string;
+  isActive?: boolean;
+  isDisabled?: boolean;
+}
+
+const { href, text, isActive, isDisabled } = Astro.props;
+const targetHref = isDisabled ? undefined : href;
+
+---
+
+<a href={targetHref} class:list={
+  [
+    'select-none',
+    { 'text-white': !isActive, 'text-red-500': isActive },
+    {'text-gray-500 cursor-not-allowed': isDisabled,}
+  ]
+}>{text}</a>

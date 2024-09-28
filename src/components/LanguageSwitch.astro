@@ -1,0 +1,32 @@
+---
+import { Icon } from "astro-icon/components";
+
+import type { ui } from "@i18n/ui";
+import { getTranslationsByLanguage } from "@i18n/utils";
+import { getLanguageFromUrl } from "@lib/getLanguageFromUrl";
+import { Language } from "@types";
+
+const userLanguage = getLanguageFromUrl(Astro.url);
+
+const availableLanguage = userLanguage === Language.pl ? Language.en : Language.pl;
+const oppositeTranslations = getTranslationsByLanguage(availableLanguage);
+
+const languageToTranslationKeyMap: Record<Language, keyof typeof ui[Language]['languageSwitch']> = {
+  [Language.en]: 'LANGUAGE_ENGLISH',
+  [Language.pl]: 'LANGUAGE_POLISH',
+};
+const languageToIconName: Record<Language, string> = {
+  [Language.en]: 'flag-english',
+  [Language.pl]: 'flag-polish',
+};
+
+const availableLanguageTranslationKey = languageToTranslationKeyMap[availableLanguage];
+const availableLanguageIconName = languageToIconName[availableLanguage];
+
+---
+
+<a href={`/${availableLanguage}/`} class="flex gap-1 items-center opacity-50 hover:opacity-100 focus:opacity-100">
+  {oppositeTranslations.languageSwitch.SWITCH_TO}
+  <Icon name={availableLanguageIconName} class="w-4" />
+  {oppositeTranslations.languageSwitch[availableLanguageTranslationKey]}
+</a>

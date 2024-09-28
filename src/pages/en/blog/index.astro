@@ -1,0 +1,10 @@
+---
+
+import { getRelativeLocaleUrl } from 'astro:i18n';
+
+import { getLanguageFromUrl } from '@lib/getLanguageFromUrl';
+
+const userLanguage = getLanguageFromUrl(Astro.url);
+
+return Astro.redirect(getRelativeLocaleUrl(userLanguage, "/blog/1"));
+---

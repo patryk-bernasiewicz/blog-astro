@@ -6,7 +6,7 @@ import icon from "astro-icon";
 
 // https://astro.build/config
 export default defineConfig({
-  site: "https://patrykb.pl",
+  site: "http://localhost:8080",
   integrations: [
     sitemap(),
     tailwind({
@@ -14,4 +14,26 @@ export default defineConfig({
     }),
     icon(),
   ],
+  i18n: {
+    defaultLocale: "pl",
+    locales: ["pl", "en"],
+    routing: {
+      prefixDefaultLocale: true,
+      redirectToDefaultLocale: true,
+    },
+  },
+  vite: {
+    resovle: {
+      alias: {
+        "@i18n": "/src/i18n",
+        "@components": "/src/components",
+        "@layouts": "/src/layouts",
+        "@lib": "/src/lib",
+        "@images": "/src/images",
+        "@types": "/src/types.ts",
+        "@consts": "/src/consts.ts",
+        "@": "/src",
+      },
+    },
+  },
 });

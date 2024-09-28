@@ -1,12 +1,15 @@
 ---
-import HeaderLink from "./HeaderLink.astro";
-import { SITE_TITLE } from "../consts";
-import { contentfulClient } from "../lib/contentful";
-import ThemeSwitch from "./ThemeSwitch.astro";
 import { Icon } from "astro-icon/components";
+
+import { SITE_TITLE } from "@consts";
+import HeaderLink from "@components/HeaderLink.astro";
+import ThemeSwitch from "@components/ThemeSwitch.astro";
+import LanguageSwitch from "@components/LanguageSwitch.astro";
+import { contentfulClient } from "@lib/contentful";
 
 const pages = await contentfulClient.getEntries<any>({
   content_type: "pageContent",
+  locale: 'pl',
 });
 ---
 
@@ -14,7 +17,7 @@ const pages = await contentfulClient.getEntries<any>({
   <nav class="container flex items-center h-12">
     <h2 class="mr-2"><a href="/">{SITE_TITLE}</a></h2>
     <div
-      class={`absolute top-12 left-0 shadow-lg right-0 grid grid-rows-[1fr] !grid-rows-[0fr] transition-[template-grid-rows] duration-200 overflow-hidden
+      class={`absolute top-12 left-0 shadow-lg right-0 grid grid-rows-[1fr] transition-[template-grid-rows] duration-200 overflow-hidden
         lg:static lg:flex lg:flex-row lg:items-center lg:overflow-visible lg:shadow-none lg:ml-auto`}
       id="menu"
     >
@@ -32,7 +35,7 @@ const pages = await contentfulClient.getEntries<any>({
           </div>
           <ul class="flex flex-col gap-4 lg:flex-row lg:items-center">
             <li>
-              <HeaderLink href="/blog">Blog</HeaderLink>
+              <HeaderLink href="/blog/1">Blog</HeaderLink>
             </li>
             {
               pages.items.map((page) => (
@@ -44,6 +47,7 @@ const pages = await contentfulClient.getEntries<any>({
               ))
             }
           </ul>
+          <LanguageSwitch />
         </div>
       </div>
     </div>

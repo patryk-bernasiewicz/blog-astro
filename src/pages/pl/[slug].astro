@@ -2,19 +2,16 @@
 import { documentToHtmlString } from "@contentful/rich-text-html-renderer";
 
 import Layout from "@layouts/BlogLayout.astro";
-import { contentfulClient, languageToContentfulLocale, type ContentfulLocale } from "@lib/contentful";
-import { getCustomPageStaticPaths } from "@lib/pagesStaticPathsGenerators";
+import { contentfulClient, type ContentfulLocale } from "@lib/contentful";
+import { Language, type PageContentSkeleton } from "@types";
+import { getCustomPageStaticPaths } from '@lib/pagesStaticPathsGenerators';
 
-import type { PageContentSkeleton } from "@types";
-import { defaultLanguage } from "@i18n/ui";
-
-export const getStaticPaths = getCustomPageStaticPaths();
+export const getStaticPaths = getCustomPageStaticPaths(Language.pl);
 
 const { slug } = Astro.params;
 const entries = await contentfulClient.getEntries<PageContentSkeleton>({
   content_type: "pageContent",
   "fields.slug": String(slug),
-  locale: languageToContentfulLocale[defaultLanguage],
 });
 const entry = await contentfulClient.getEntry<PageContentSkeleton, ContentfulLocale>(
   entries.items[0].sys.id

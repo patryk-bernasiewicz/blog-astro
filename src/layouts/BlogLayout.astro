@@ -1,24 +1,43 @@
 ---
 import type { CollectionEntry } from "astro:content";
-import BaseHead from "../components/BaseHead.astro";
-import Header from "../components/Header.astro";
-import Footer from "../components/Footer.astro";
+
+import BaseHead from "@components/layout/blog/BaseHead.astro";
+import Header from "@components/layout/blog/Header.astro";
+import Footer from "@components/layout/blog/Footer.astro";
 
 type Props = CollectionEntry<"blog">["data"];
 
-const { title, description, pubDate, updatedDate, heroImage } = Astro.props;
+const { title, description /*, pubDate, updatedDate, heroImage*/ } = Astro.props;
 ---
 
-<html lang="en">
+<html lang="pl">
   <head>
     <BaseHead title={title} description={description} />
   </head>
 
-  <body class="text-brandGray-800 dark:bg-brandGray-800 dark:text-brandGray-50">
+  <body class="flex flex-col text-brandGray-800 dark:bg-brandGray-800 dark:text-brandGray-50">
     <Header />
-    <main class="container pt-16">
+    <main class="container pt-16 flex-grow">
       <slot />
     </main>
     <Footer />
   </body>
 </html>
+<script>
+  (function() {
+    let theme = localStorage.getItem('theme');
+
+    if (
+      (!("theme" in localStorage) &&
+        window.matchMedia("(prefers-color-scheme: dark)").matches)
+    ) {
+      localStorage.setItem("theme", "dark");
+      document.documentElement.classList.add("dark");
+      theme = 'dark';
+    }
+
+    if (theme === 'dark') {
+      document.documentElement.classList.add('dark');
+    }
+  })();
+</script>

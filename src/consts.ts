@@ -4,4 +4,4 @@
 export const SITE_TITLE = "Astro Blog";
 export const SITE_DESCRIPTION = "Welcome to my website!";
 
-export const BLOG_PAGE_SIZE = 2;
+export const BLOG_PAGE_SIZE = 6;

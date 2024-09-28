@@ -1,7 +1,5 @@
 import * as contentful from "contentful";
 
-export type Locales = "en-US" | "pl-PL";
-
 export type BlogPostSkeleton = {
   contentTypeId: "blogPost";
   fields: {
@@ -20,3 +18,18 @@ export type PageContentSkeleton = {
     slug: contentful.EntryFieldTypes.Text;
   };
 };
+
+export enum Language {
+  pl = "pl",
+  en = "en",
+}
+
+type Translations = { [translationKey: string]: string };
+
+type ComponentTranslations = {
+  themeSwitch: Translations;
+  languageSwitch: Translations;
+  pagination: Translations;
+};
+
+export type UiTranslations = Record<Language, ComponentTranslations>;

@@ -1,0 +1,20 @@
+---
+import BaseHead from "@components/layout/blog/BaseHead.astro";
+import Header from "@components/layout/blog/Header.astro";
+import Footer from "@components/layout/blog/Footer.astro";
+import { SITE_TITLE, SITE_DESCRIPTION } from "@consts";
+
+return Astro.redirect("/en/blog/1");
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <BaseHead title={SITE_TITLE} description={SITE_DESCRIPTION} />
+  </head>
+  <body>
+    <Header />
+    <main>Lorem ipsum</main>
+    <Footer />
+  </body>
+</html>
