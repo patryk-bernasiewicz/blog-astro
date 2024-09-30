@@ -37,7 +37,7 @@ html.dark pre[class*="language-"] {
 html.dark :not(pre) > code[class*="language-"],
 html.dark pre[class*="language-"] {
   background: #1d1f21;
-  transition: background 0.5s ease-in;
+  transition: background-color 0.5s ease-in;
 }
 
 /* Inline code */

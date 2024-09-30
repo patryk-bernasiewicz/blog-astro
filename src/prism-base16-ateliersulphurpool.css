@@ -42,7 +42,7 @@ html:not(.dark) code[class*="language-"]::-moz-selection,
 html:not(.dark) code[class*="language-"] ::-moz-selection {
   text-shadow: none;
   background: #dfe2f1;
-  transition: background 0.5s ease-in;
+  transition: background-color 0.5s ease-in;
 }
 
 html:not(.dark) pre[class*="language-"]::selection,

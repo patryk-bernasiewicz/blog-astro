@@ -9,6 +9,9 @@ export const defaultLanguage = Language.pl;
 
 export const ui: UiTranslations = {
   [Language.pl]: {
+    pages: {
+      ENTRIES_PAGE_TITLE: "Wpisy na blogu, strona {page}",
+    },
     backButton: {
       GO_BACK: "Wróć",
     },
@@ -24,12 +27,18 @@ export const ui: UiTranslations = {
       BUTTON_PREVIOUS: "Poprzednie",
       BUTTON_NEXT: "Następne",
     },
+    header: {
+      TOGGLE_MENU: "Przełącz menu",
+    },
     footer: {
       BUILT_WITH: "Zbudowano za pomocą",
       SOURCE_CODE: "Zobacz kod źródłowy tego bloga na Github",
     },
   },
   [Language.en]: {
+    pages: {
+      ENTRIES_PAGE_TITLE: "Blog entries, page {page}",
+    },
     backButton: {
       GO_BACK: "Go back",
     },
@@ -44,6 +53,9 @@ export const ui: UiTranslations = {
     pagination: {
       BUTTON_PREVIOUS: "Previous",
       BUTTON_NEXT: "Next",
+    },
+    header: {
+      TOGGLE_MENU: "Toggle menu",
     },
     footer: {
       BUILT_WITH: "Built with",

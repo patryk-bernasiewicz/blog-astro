@@ -1,12 +1,16 @@
 import { defineConfig } from "astro/config";
 import sitemap from "@astrojs/sitemap";
 import tailwind from "@astrojs/tailwind";
+import "dotenv/config";
 
 import icon from "astro-icon";
 
 // https://astro.build/config
 export default defineConfig({
-  site: "http://localhost:8080",
+  site: process.env.SITE_URL || "http://localhost:8080",
+  build: {
+    redirects: false,
+  },
   integrations: [
     sitemap(),
     tailwind({
@@ -23,6 +27,12 @@ export default defineConfig({
     },
   },
   vite: {
+    build: {
+      cssMinify: "lightningcss",
+    },
+    ssr: {
+      noExternal: ["tailwindcss"],
+    },
     resovle: {
       alias: {
         "@i18n": "/src/i18n",

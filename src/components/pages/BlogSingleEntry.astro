@@ -2,6 +2,7 @@
 import { documentToHtmlString, type Options } from '@contentful/rich-text-html-renderer';
 import { BLOCKS, INLINES, MARKS, type Document } from '@contentful/rich-text-types';
 import BackButton from "@components/BackButton/BackButton.astro";
+import BlogLayout from '@layouts/BlogLayout.astro';
 
 interface Props {
   title: string;
@@ -38,8 +39,18 @@ const options: Options = {
 
 const bodyHtmlContent = documentToHtmlString(body, options);
 ---
-<BackButton />
-<div class="my-2 flex flex-col">
-  <h2 class="text-xl mt-2 mb-4">{title}</h2>
-  <div class="blog-content" set:html={bodyHtmlContent} />
-</div>
+<BlogLayout title={title}>
+  <BackButton />
+  <div class="my-2 flex flex-col">
+    <h2 class="text-xl mt-2 mb-4">{title}</h2>
+    <div class="blog-content" set:html={bodyHtmlContent} />
+  </div>
+</BlogLayout>
+<script is:inline>
+  window.Prism = window.Prism || {};
+  Prism.manual = true;
+  document.addEventListener('astro:page-load', () => {
+    Prism.highlightAll();
+  });
+</script>
+<script is:inline src="https://cdnjs.cloudflare.com/ajax/libs/prism/9000.0.1/prism.min.js" data-manual />

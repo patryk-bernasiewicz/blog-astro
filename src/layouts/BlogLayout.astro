@@ -8,12 +8,12 @@ import Footer from "@components/layout/blog/Footer.astro";
 
 type Props = CollectionEntry<"blog">["data"];
 
-const { title, description /*, pubDate, updatedDate, heroImage*/ } = Astro.props;
+const { title, description } = Astro.props;
 ---
 
 <html lang="pl">
   <head>
-    <BaseHead title={title} description={description} />
+    <BaseHead title={`PatrykB.pl | ${title}`} description={description} />
     <ViewTransitions />
   </head>
   <body class="flex flex-col text-brandGray-800 bg-brandGray-50 dark:bg-brandGray-800 dark:text-brandGray-50">
@@ -23,5 +23,4 @@ const { title, description /*, pubDate, updatedDate, heroImage*/ } = Astro.props
     </main>
     <Footer />
   </body>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/9000.0.1/prism.min.js" />
 </html>

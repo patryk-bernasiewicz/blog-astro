@@ -8,8 +8,10 @@ import LanguageSwitch from "@components/LanguageSwitch.astro";
 import { cn } from "@lib/tailwind";
 import { getLanguageFromUrl } from "@lib/getLanguageFromUrl";
 import { getPagesList } from '@lib/pagesStaticPathsGenerators';
+import { getTranslationsByLanguage } from "@i18n/utils";
 
 const userLanguage = getLanguageFromUrl(Astro.url);
+const translations = getTranslationsByLanguage(userLanguage);
 const pages = await getPagesList(userLanguage);
 ---
 
@@ -59,6 +61,7 @@ const pages = await getPagesList(userLanguage);
         name="menu"
         class="[&_path]:fill-brandGray-900 dark:[&_path]:fill-brandGray-300"
       />
+      <span class="sr-only">{translations.header.TOGGLE_MENU}</span>
     </button>
   </nav>
 </header>

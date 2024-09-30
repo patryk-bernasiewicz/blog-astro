@@ -19,7 +19,13 @@ const translations = getTranslationsByLanguage(userLanguage);
       class="flex justify-center md:justify-start items-center text-sm gap-1"
     >
       <span>{translations.footer.BUILT_WITH}</span>
-      <img class="w-20 -mb-[0.25em]" src="/astro-logo-light-gradient.svg" />
+      <img
+        alt="Astro logo"
+        width="80"
+        height="27"
+        class="w-20 -mb-[0.25em]"
+        src="/astro-logo-light-gradient.svg"
+      />
     </a>
     <a
     href="https://github.com/patryk-bernasiewicz/blog-astro"
@@ -30,7 +36,13 @@ const translations = getTranslationsByLanguage(userLanguage);
       )}
     >
       <span>{translations.footer.SOURCE_CODE}</span>
-      <img class="w-4 dark:invert -mt-[0.25em]" src="/github-icon.svg" />
+      <img
+        alt="Github logo"
+        width="16"
+        height="16"
+        class="w-4 dark:invert -mt-[0.25em]"
+        src="/github-icon.svg"
+      />
     </a>
   </div>
 </footer>

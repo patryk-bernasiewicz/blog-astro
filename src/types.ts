@@ -27,10 +27,12 @@ export enum Language {
 type Translations = { [translationKey: string]: string };
 
 const siteComponents = [
+  "pages",
   "backButton",
   "themeSwitch",
   "languageSwitch",
   "pagination",
+  "header",
   "footer",
 ] as const;
 
