@@ -16,7 +16,6 @@ const { title, description /*, pubDate, updatedDate, heroImage*/ } = Astro.props
     <BaseHead title={title} description={description} />
     <ViewTransitions />
   </head>
-
   <body class="flex flex-col text-brandGray-800 bg-brandGray-50 dark:bg-brandGray-800 dark:text-brandGray-50">
     <Header />
     <main class="container pt-16 flex-grow">
@@ -24,22 +23,5 @@ const { title, description /*, pubDate, updatedDate, heroImage*/ } = Astro.props
     </main>
     <Footer />
   </body>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/9000.0.1/prism.min.js" />
 </html>
-<script>
-  // (function() {
-  //   let theme = localStorage.getItem('theme');
-
-  //   if (
-  //     (!("theme" in localStorage) &&
-  //       window.matchMedia("(prefers-color-scheme: dark)").matches)
-  //   ) {
-  //     theme = 'dark';
-  //     localStorage.setItem("theme", "dark");
-  //     document.documentElement.classList.add("dark");
-  //   }
-
-  //   if (theme === 'dark') {
-  //     document.documentElement.classList.add('dark');
-  //   }
-  // })();
-</script>

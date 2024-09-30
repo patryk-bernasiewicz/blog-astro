@@ -1,0 +1,45 @@
+---
+import { documentToHtmlString, type Options } from '@contentful/rich-text-html-renderer';
+import { BLOCKS, INLINES, MARKS, type Document } from '@contentful/rich-text-types';
+import BackButton from "@components/BackButton/BackButton.astro";
+
+interface Props {
+  title: string;
+  body: Document;
+}
+
+const { title, body } = Astro.props;
+
+const options: Options = {
+  renderNode: {
+    [BLOCKS.PARAGRAPH]: (node, next) =>
+      `<p class="mb-4">${next(node.content)}</p>`,
+    [BLOCKS.HEADING_2]: (node, next) =>
+      `<h2 class="text-lg">${next(node.content)}</h2>`,
+    [INLINES.HYPERLINK]: (node, next) =>
+      `<a href="${node.data.uri}" class="text-primary hover:underline">${next(node.content)}</a>`,
+  },
+  renderMark: {
+    [MARKS.CODE]: (text) => {
+      const regex = /^lang:(\w+)/m;
+      const match = text.match(regex);
+
+      if (!match) {
+        return `<code>${text}</code>`;
+      }
+
+      const language = match[1];
+      let code = text.replace(regex, '').trim();
+
+      return `<pre><code class="language-${language}">${code}</code></pre>`;
+    },
+  },
+};
+
+const bodyHtmlContent = documentToHtmlString(body, options);
+---
+<BackButton />
+<div class="my-2 flex flex-col">
+  <h2 class="text-xl mt-2 mb-4">{title}</h2>
+  <div class="blog-content" set:html={bodyHtmlContent} />
+</div>

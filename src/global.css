@@ -52,4 +52,16 @@ body {
   a {
     @apply focus:ring-4 focus:ring-primary focus-within:ring-4 focus-within:ring-primary focus:outline-none;
   }
+
+  .blog-content h1,
+  .blog-content h2,
+  .blog-content h3,
+  .blog-content h4,
+  .blog-content h5,
+  .blog-content h6 {
+    @apply mb-[0.35em] mt-[0.5em];
+  }
+  .blog-content hr {
+    @apply border-b border-primary opacity-25;
+  }
 }

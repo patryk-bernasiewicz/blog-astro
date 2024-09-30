@@ -1,41 +1,18 @@
 ---
-import type {
-  InferGetStaticParamsType,
-  InferGetStaticPropsType,
-} from "astro";
-import { documentToHtmlString, type Options } from '@contentful/rich-text-html-renderer';
-import { BLOCKS, INLINES } from '@contentful/rich-text-types';
+import type { InferGetStaticPropsType } from "astro";
 
 import Layout from "@layouts/BlogLayout.astro";
+import BlogSingleEntry from "@components/pages/BlogSingleEntry.astro";
 import { getSingleBlogEntryStaticPaths } from "@lib/pagesStaticPathsGenerators";
 import { Language } from "@types";
-import BackButton from "@components/BackButton/BackButton.astro";
+
+type Props = InferGetStaticPropsType<typeof getStaticPaths>;
 
 export const getStaticPaths = getSingleBlogEntryStaticPaths(Language.en);
 
-type Params = InferGetStaticParamsType<typeof getStaticPaths>;
-type Props = InferGetStaticPropsType<typeof getStaticPaths>;
-
-const { title, excerpt, body } = Astro.props;
-
-const options: Options = {
-  renderNode: {
-    [BLOCKS.PARAGRAPH]: (node, next) =>
-      `<p class="mb-4">${next(node.content)}</p>`,
-    [BLOCKS.HEADING_2]: (node, next) =>
-      `<h2 class="text-lg">${next(node.content)}</h2>`,
-    [INLINES.HYPERLINK]: (node, next) =>
-      `<a href="${node.data.uri}" class="text-blue-500 hover:underline">${next(node.content)}</a>`,
-  }
-};
-const bodyHtmlContent = documentToHtmlString(body, options);
+const { title, body } = Astro.props;
 ---
 
 <Layout>
-  <BackButton />
-  <div class="my-2 flex flex-col">
-    <h2 class="text-xl">{title}</h2>
-    <div>{excerpt}</div>
-    <div set:html={bodyHtmlContent} />
-  </div>
+  <BlogSingleEntry title={title} body={body} />
 </Layout>

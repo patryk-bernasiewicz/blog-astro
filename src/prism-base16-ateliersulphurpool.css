@@ -1,0 +1,193 @@
+/*
+
+Name:       Base16 Atelier Sulphurpool Light
+Author:     Bram de Haan (http://atelierbram.github.io/syntax-highlighting/atelier-schemes/sulphurpool)
+
+Prism template by Bram de Haan (http://atelierbram.github.io/syntax-highlighting/prism/)
+Original Base16 color scheme by Chris Kempson (https://github.com/chriskempson/base16)
+
+*/
+
+html:not(.dark) code[class*="language-"],
+html:not(.dark) pre[class*="language-"] {
+  font-family: Consolas, Menlo, Monaco, "Andale Mono WT", "Andale Mono",
+    "Lucida Console", "Lucida Sans Typewriter", "DejaVu Sans Mono",
+    "Bitstream Vera Sans Mono", "Liberation Mono", "Nimbus Mono L",
+    "Courier New", Courier, monospace;
+  font-size: 14px;
+  line-height: 1.375;
+  direction: ltr;
+  text-align: left;
+  white-space: pre;
+  word-spacing: normal;
+  word-break: normal;
+  -moz-tab-size: 4;
+  -o-tab-size: 4;
+  tab-size: 4;
+  -webkit-hyphens: none;
+  -moz-hyphens: none;
+  -ms-hyphens: none;
+  hyphens: none;
+  background: #f5f7ff;
+  color: #5e6687;
+}
+
+html:not(.dark) pre > code[class*="language-"] {
+  font-size: 1em;
+}
+
+html:not(.dark) pre[class*="language-"]::-moz-selection,
+html:not(.dark) pre[class*="language-"] ::-moz-selection,
+html:not(.dark) code[class*="language-"]::-moz-selection,
+html:not(.dark) code[class*="language-"] ::-moz-selection {
+  text-shadow: none;
+  background: #dfe2f1;
+  transition: background 0.5s ease-in;
+}
+
+html:not(.dark) pre[class*="language-"]::selection,
+html:not(.dark) pre[class*="language-"] ::selection,
+html:not(.dark) code[class*="language-"]::selection,
+html:not(.dark) code[class*="language-"] ::selection {
+  text-shadow: none;
+  background: #dfe2f1;
+}
+
+/* Code blocks */
+html:not(.dark) pre[class*="language-"] {
+  padding: 1em;
+  margin: 0.5em 0;
+  overflow: auto;
+}
+
+/* Inline code */
+html:not(.dark) :not(pre) > code[class*="language-"] {
+  padding: 0.1em;
+  border-radius: 0.3em;
+}
+
+html:not(.dark) .token.comment,
+html:not(.dark) .token.prolog,
+html:not(.dark) .token.doctype,
+html:not(.dark) .token.cdata {
+  color: #898ea4;
+}
+
+html:not(.dark) .token.punctuation {
+  color: #5e6687;
+}
+
+html:not(.dark) .token.namespace {
+  opacity: 0.7;
+}
+
+html:not(.dark) .token.operator,
+html:not(.dark) .token.boolean,
+html:not(.dark) .token.number {
+  color: #c76b29;
+}
+
+html:not(.dark) .token.property {
+  color: #c08b30;
+}
+
+html:not(.dark) .token.tag {
+  color: #3d8fd1;
+}
+
+html:not(.dark) .token.string {
+  color: #22a2c9;
+}
+
+html:not(.dark) .token.selector {
+  color: #6679cc;
+}
+
+html:not(.dark) .token.attr-name {
+  color: #c76b29;
+}
+
+html:not(.dark) .token.entity,
+html:not(.dark) .token.url,
+html:not(.dark) .language-css .token.string,
+html:not(.dark) .style .token.string {
+  color: #22a2c9;
+}
+
+html:not(.dark) .token.attr-value,
+html:not(.dark) .token.keyword,
+html:not(.dark) .token.control,
+html:not(.dark) .token.directive,
+html:not(.dark) .token.unit {
+  color: #ac9739;
+}
+
+html:not(.dark) .token.statement,
+html:not(.dark) .token.regex,
+html:not(.dark) .token.atrule {
+  color: #22a2c9;
+}
+
+html:not(.dark) .token.placeholder,
+html:not(.dark) .token.variable {
+  color: #3d8fd1;
+}
+
+html:not(.dark) .token.deleted {
+  text-decoration: line-through;
+}
+
+html:not(.dark) .token.inserted {
+  border-bottom: 1px dotted #202746;
+  text-decoration: none;
+}
+
+html:not(.dark) .token.italic {
+  font-style: italic;
+}
+
+html:not(.dark) .token.important,
+html:not(.dark) .token.bold {
+  font-weight: bold;
+}
+
+html:not(.dark) .token.important {
+  color: #c94922;
+}
+
+html:not(.dark) .token.entity {
+  cursor: help;
+}
+
+html:not(.dark) pre > code.highlight {
+  outline: 0.4em solid #c94922;
+  outline-offset: 0.4em;
+}
+
+/* overrides color-values for the Line Numbers plugin
+ * http://prismjs.com/plugins/line-numbers/
+ */
+html:not(.dark) .line-numbers.line-numbers .line-numbers-rows {
+  border-right-color: #dfe2f1;
+}
+
+html:not(.dark) .line-numbers .line-numbers-rows > span:before {
+  color: #979db4;
+}
+
+/* overrides color-values for the Line Highlight plugin
+ * http://prismjs.com/plugins/line-highlight/
+ */
+html:not(.dark) .line-highlight.line-highlight {
+  background: rgba(107, 115, 148, 0.2);
+  background: -webkit-linear-gradient(
+    left,
+    rgba(107, 115, 148, 0.2) 70%,
+    rgba(107, 115, 148, 0)
+  );
+  background: linear-gradient(
+    to right,
+    rgba(107, 115, 148, 0.2) 70%,
+    rgba(107, 115, 148, 0)
+  );
+}
