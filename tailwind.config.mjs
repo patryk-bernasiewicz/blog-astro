@@ -4,6 +4,24 @@ export default {
   darkMode: "selector",
   theme: {
     extend: {
+      backgroundImage: {
+        brandGradientVertical: `linear-gradient(
+          to bottom,
+          rgb(196 196 196 / 0%) 0%,
+          rgb(196 196 196 / 40%) 21%,
+          rgb(196 196 196 / 90%) 51%,
+          rgb(196 196 196 / 40%) 81%,
+          rgb(196 196 196 / 0%) 100%
+        )`,
+        brandGradientHorizontal: `linear-gradient(
+          to bottom,
+          rgb(196 196 196 / 0%) 0%,
+          rgb(196 196 196 / 40%) 21%,
+          rgb(196 196 196 / 90%) 51%,
+          rgb(196 196 196 / 40%) 81%,
+          rgb(196 196 196 / 0%) 100%
+        )`,
+      },
       colors: {
         primary: "#71C7CD",
         brandGray: {
@@ -18,6 +36,12 @@ export default {
           700: "#4C4847",
           800: "#262322",
           900: "#161617",
+        },
+      },
+      textColor: {
+        body: {
+          dark: "#262322",
+          light: "#fdfdfd",
         },
       },
     },

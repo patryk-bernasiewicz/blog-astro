@@ -1,0 +1,30 @@
+---
+import { getTranslationsByLanguage } from "@i18n/utils";
+import { getLanguageFromUrl } from "@lib/getLanguageFromUrl";
+import { getRelativeLocaleUrl } from "astro:i18n";
+
+const fromPage = Astro.url.searchParams.get('page') || '1';
+const userLanguage = getLanguageFromUrl(Astro.url);
+const translations = getTranslationsByLanguage(userLanguage);
+---
+<a href="#" type="button" class="pointer-events-none cursor-not-allowed" id="backButton">
+  {translations.backButton.GO_BACK}
+</a>
+
+<script is:inline>
+  (() => {
+    const linkElement = document.getElementById('backButton');
+
+    if (!linkElement) {
+      return;
+    }
+
+    const url = new URL(window.location.href);
+    const searchParams = new URLSearchParams(window.location.search);
+    const page = searchParams.get('page') || 1;
+
+    const pathname = url.pathname.slice(0, url.pathname.indexOf('blog/entry')+5) + String(page);
+    linkElement.setAttribute('href', pathname);
+    linkElement.classList.remove('pointer-events-none', 'cursor-not-allowed');
+  })();
+</script>

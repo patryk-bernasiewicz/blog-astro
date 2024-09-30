@@ -20,14 +20,30 @@ const userLanguage = getLanguageFromUrl(Astro.url);
 ---
 
 {title && <h1>{title}</h1>}
-<ul class="flex flex-col gap-6 mb-2">
+<ul class:list={[
+  'flex flex-col gap-8 mb-2 px-2 pt-4 pb-4 relative',
+  'before:absolute before:content-[""] before:block before:w-1 before:h-[125%] before:top-[50%] before:-translate-y-[50%] before:translate-x-[50%] before:bg-brandGradientVertical dark:before:opacity-25',
+]}>
   {entries.map((entry) => (
-    <li>
-      <a href={getRelativeLocaleUrl(userLanguage, `/blog/entry/${entry.fields.slug}`)} class="flex flex-col gap-2">
-        <h2 class="text-lg">{entry.fields.title}</h2>
-        <div>{entry.fields.excerpt}</div>
+    <li class:list={[
+      'pl-6',
+      'before:absolute before:content-[""] before:left-0 before:translate-y-[0.125em] before:rounded-full before:w-6 before:h-6',
+      'before:bg-white dark:before:bg-brandGray-800 before:border-brandGray-400 before:border-2',
+      'hover:before:border-brandGray-300'
+    ]}>
+      <a
+        href={`${getRelativeLocaleUrl(userLanguage, `/blog/entry/${entry.fields.slug}`)}?page=${page.currentPage}`}
+        class="link flex flex-col gap-2 group"
+      >
+        <h2 class="text-lg text-primary group-hover:brightness-75 group-focus:brightness-75">{entry.fields.title}</h2>
+        <div class="text-body-dark dark:text-body-light">{entry.fields.excerpt}</div>
       </a>
     </li>
   ))}
 </ul>
-<Pagination current={page.currentPage} total={page.lastPage} />
+<Pagination
+  current={page.currentPage}
+  total={page.lastPage}
+  prevUrl={page.url.prev}
+  nextUrl={page.url.next}
+/>

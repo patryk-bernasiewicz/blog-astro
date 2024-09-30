@@ -48,13 +48,23 @@ const translations = getTranslationsByLanguage(userLanguage);
   >
   </div>
 </label>
-<script>
+<script is:inline>
   (() => {
     const themeSwitch = document.getElementById(
       "theme-switch"
-    ) as HTMLInputElement;
+    );
 
     if (themeSwitch) {
+      if (
+        localStorage.theme === "dark" ||
+        (!("theme" in localStorage) &&
+          window.matchMedia("(prefers-color-scheme: dark)").matches)
+      ) {
+        themeSwitch.checked = true;
+        localStorage.setItem("theme", "dark");
+        document.documentElement.classList.add("dark");
+      }
+
       themeSwitch.addEventListener("change", () => {
         if (themeSwitch.checked) {
           document.documentElement.classList.add("dark");
@@ -65,5 +75,14 @@ const translations = getTranslationsByLanguage(userLanguage);
         }
       });
     }
+
+    document.addEventListener('astro:after-swap', function () {
+      if (localStorage.getItem('theme') === 'dark') {
+        document.documentElement.classList.toggle('dark', true);
+      }
+    });
   })();
+</script>
+<script is:inline>
+  
 </script>

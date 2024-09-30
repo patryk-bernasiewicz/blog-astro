@@ -9,13 +9,13 @@ import { BLOCKS, INLINES } from '@contentful/rich-text-types';
 import Layout from "@layouts/BlogLayout.astro";
 import { getSingleBlogEntryStaticPaths } from "@lib/pagesStaticPathsGenerators";
 import { Language } from "@types";
+import BackButton from "@components/BackButton/BackButton.astro";
 
 export const getStaticPaths = getSingleBlogEntryStaticPaths(Language.pl);
 
 type Params = InferGetStaticParamsType<typeof getStaticPaths>;
 type Props = InferGetStaticPropsType<typeof getStaticPaths>;
 
-const { slug } = Astro.params;
 const { title, excerpt, body } = Astro.props;
 
 const options: Options = {
@@ -29,22 +29,13 @@ const options: Options = {
   }
 };
 const bodyHtmlContent = documentToHtmlString(body, options);
-
 ---
 
 <Layout>
-  <div>
-    <button type="button" id="backButton">Back</button>
-    <div class="my-2 flex flex-col">
-      <h2 class="text-xl">{title}</h2>
-      <div>{excerpt}</div>
-      <div set:html={bodyHtmlContent} />
-    </div>
+  <BackButton />
+  <div class="my-2 flex flex-col">
+    <h2 class="text-xl">{title}</h2>
+    <div>{excerpt}</div>
+    <div set:html={bodyHtmlContent} />
   </div>
 </Layout>
-
-<script>
-  document.getElementById("backButton")?.addEventListener("click", () => {
-    history.back();
-  });
-</script>

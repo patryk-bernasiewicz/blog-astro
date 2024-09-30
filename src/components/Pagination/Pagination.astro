@@ -2,16 +2,16 @@
 interface Props {
   total: number;
   current: number;
+  prevUrl?: string;
+  nextUrl?: string;
 }
 
 import { getLanguageFromUrl } from '@lib/getLanguageFromUrl';
 import { getTranslationsByLanguage } from '@i18n/utils';
 import PaginationLink from './PaginationLink.astro';
 
-const { total, current } = Astro.props;
+const { total, current, prevUrl, nextUrl } = Astro.props;
 
-const hasPrevious = current > 1;
-const hasNext = current < total;
 const pageLinks = Array.from({ length: total });
 
 const language = getLanguageFromUrl(Astro.url);
@@ -19,10 +19,13 @@ const translations = getTranslationsByLanguage(language);
 
 ---
 
-<nav class="flex items-center justify-center">
+<nav class="flex items-center justify-center opacity-50 hover:opacity-100 focus-within:opacity-100">
   <ul class="flex items-center gap-4">
     <li>
-      <PaginationLink isDisabled={!hasPrevious} href={`/blog/${current - 1}`} text={translations.pagination.BUTTON_PREVIOUS} />
+      <PaginationLink
+        href={prevUrl}
+        text={translations.pagination.BUTTON_PREVIOUS}
+      />
     </li>
     {pageLinks.map((_, index) => {
       const pageNum = index + 1;
@@ -31,12 +34,20 @@ const translations = getTranslationsByLanguage(language);
       
       return (
         <li>
-          <PaginationLink isActive={isActive} href={href} text={String(pageNum)} />
+          <PaginationLink
+            number
+            isActive={isActive}
+            href={href}
+            text={String(pageNum)}
+          />
         </li>
       );
     })}
     <li>
-      <PaginationLink isDisabled={!hasNext} href={`/blog/${current + 1}`} text={translations.pagination.BUTTON_NEXT} />
+      <PaginationLink
+        href={nextUrl}
+        text={translations.pagination.BUTTON_NEXT}
+      />
     </li>
   </ul>
 </nav>

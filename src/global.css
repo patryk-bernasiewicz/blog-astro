@@ -2,6 +2,10 @@
 @tailwind components;
 @tailwind base;
 
+body {
+  font-family: "Sen", sans-serif;
+}
+
 @layer base {
   h1,
   h2,

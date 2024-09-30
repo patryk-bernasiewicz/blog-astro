@@ -25,7 +25,7 @@ const availableLanguageIconName = languageToIconName[availableLanguage];
 
 ---
 
-<a href={`/${availableLanguage}/`} class="flex gap-1 items-center opacity-50 hover:opacity-100 focus:opacity-100">
+<a href={`/${availableLanguage}/`} class="flex gap-2 items-center md:opacity-50 md:hover:opacity-100 md:focus:opacity-100">
   {oppositeTranslations.languageSwitch.SWITCH_TO}
   <Icon name={availableLanguageIconName} class="w-4" />
   {oppositeTranslations.languageSwitch[availableLanguageTranslationKey]}

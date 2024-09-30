@@ -1,20 +1,30 @@
 ---
+import { getRelativeLocaleUrl } from 'astro:i18n';
+
+import { cn } from '@lib/tailwind';
+import { getLanguageFromUrl } from '@lib/getLanguageFromUrl';
+
 interface Props {
-  href: string;
+  href?: string;
   text: string;
   isActive?: boolean;
-  isDisabled?: boolean;
+  number?: boolean;
 }
 
-const { href, text, isActive, isDisabled } = Astro.props;
-const targetHref = isDisabled ? undefined : href;
-
+const userLanguage = getLanguageFromUrl(Astro.url);
+const { href: _href, text, isActive, number } = Astro.props;
+const href = _href ? getRelativeLocaleUrl(userLanguage, _href) : undefined;
+const isDisabled = !href;
 ---
 
-<a href={targetHref} class:list={
-  [
-    'select-none',
-    { 'text-white': !isActive, 'text-red-500': isActive },
-    {'text-gray-500 cursor-not-allowed': isDisabled,}
-  ]
-}>{text}</a>
+<a
+  href={href}
+  class={cn(
+    'inline-flex justify-center items-center h-6 select-none text-body-dark dark:text-body-light',
+    number && 'rounded-full aspect-square',
+    isActive && 'bg-brandGray-50 dark:bg-brandGray-900',
+    isDisabled && 'text-gray-500 dark:text-gray-500 cursor-not-allowed',
+  )}
+>
+  {text}
+</a>

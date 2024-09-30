@@ -51,3 +51,10 @@ export const getPaginatedBlogPosts = async (
 
   return paginate(entries.items, { pageSize: BLOG_PAGE_SIZE });
 };
+
+export const getPagesList = async (language: Language = Language.pl) => {
+  return contentfulClient.getEntries<any>({
+    content_type: "pageContent",
+    locale: languageToContentfulLocale[language],
+  });
+};

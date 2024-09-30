@@ -5,35 +5,38 @@ import { SITE_TITLE } from "@consts";
 import HeaderLink from "@components/HeaderLink.astro";
 import ThemeSwitch from "@components/ThemeSwitch.astro";
 import LanguageSwitch from "@components/LanguageSwitch.astro";
-import { contentfulClient } from "@lib/contentful";
+import { cn } from "@lib/tailwind";
+import { getLanguageFromUrl } from "@lib/getLanguageFromUrl";
+import { getPagesList } from '@lib/pagesStaticPathsGenerators';
 
-const pages = await contentfulClient.getEntries<any>({
-  content_type: "pageContent",
-  locale: 'pl',
-});
+const userLanguage = getLanguageFromUrl(Astro.url);
+const pages = await getPagesList(userLanguage);
 ---
 
-<header class="w-full fixed shadow-lg bg-brandGray-50 dark:bg-brandGray-800">
+<header class="w-full fixed z-10 shadow-lg bg-brandGray-50 dark:bg-brandGray-800">
   <nav class="container flex items-center h-12">
     <h2 class="mr-2"><a href="/">{SITE_TITLE}</a></h2>
     <div
-      class={`absolute top-12 left-0 shadow-lg right-0 grid grid-rows-[1fr] transition-[template-grid-rows] duration-200 overflow-hidden
-        lg:static lg:flex lg:flex-row lg:items-center lg:overflow-visible lg:shadow-none lg:ml-auto`}
+      class={cn(
+        "absolute z-10 top-12 left-0 shadow-lg right-0",
+        "bg-brandGray-50 dark:bg-brandGray-900 grid !grid-rows-[0fr] grid-rows-[1fr] transition-[template-grid-rows] duration-200 overflow-hidden",
+        "md:bg-transparent dark:md:bg-transparent md:static md:flex md:flex-row md:items-center md:overflow-visible md:shadow-none md:ml-auto"
+      )}
       id="menu"
     >
       <div
         class={`min-h-0 invisible
-          lg:min-h-[none] lg:h-auto lg:visible lg:flex lg:flex-row lg:items-center`}
+          md:min-h-[none] md:h-auto md:visible md:flex md:flex-row md:items-center`}
         id="menu-expander"
       >
         <div
           class={`px-4 py-4 flex flex-col-reverse
-            lg:flex-row-reverse lg:gap-4 lg:p-0 lg:items-center`}
+            md:flex-row-reverse md:gap-4 md:p-0 md:items-center`}
         >
-          <div class="mt-4 lg:m-0">
+          <div class="mt-4 md:m-0">
             <ThemeSwitch />
           </div>
-          <ul class="flex flex-col gap-4 lg:flex-row lg:items-center">
+          <ul class="order-1 mb-2 flex flex-col gap-4 md:order-[unset] md:flex-row md:items-center md:mb-0">
             <li>
               <HeaderLink href="/blog/1">Blog</HeaderLink>
             </li>
@@ -51,7 +54,7 @@ const pages = await contentfulClient.getEntries<any>({
         </div>
       </div>
     </div>
-    <button type="button" class="lg:hidden ml-auto">
+    <button type="button" class="md:hidden ml-auto">
       <Icon
         name="menu"
         class="[&_path]:fill-brandGray-900 dark:[&_path]:fill-brandGray-300"
@@ -67,8 +70,13 @@ const pages = await contentfulClient.getEntries<any>({
 
     if (menu && menuButton && menuExpander) {
       menuButton.addEventListener("click", () => {
-        menu.classList.toggle("!grid-rows-[0fr]");
-        menuExpander.classList.toggle("invisible");
+        if (menu.classList.contains('!grid-rows-[0fr]')) {
+          menu.classList.remove("!grid-rows-[0fr]");
+          menuExpander.classList.remove("invisible");
+        } else {
+          menu.classList.add("!grid-rows-[0fr]");
+          menuExpander.classList.add("invisible");
+        }
       });
     }
   })();

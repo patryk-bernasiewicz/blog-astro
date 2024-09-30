@@ -26,10 +26,16 @@ export enum Language {
 
 type Translations = { [translationKey: string]: string };
 
+const siteComponents = [
+  "backButton",
+  "themeSwitch",
+  "languageSwitch",
+  "pagination",
+  "footer",
+] as const;
+
 type ComponentTranslations = {
-  themeSwitch: Translations;
-  languageSwitch: Translations;
-  pagination: Translations;
+  [key in (typeof siteComponents)[number]]: Translations;
 };
 
 export type UiTranslations = Record<Language, ComponentTranslations>;
