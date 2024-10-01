@@ -1,15 +1,26 @@
 ---
 import { getTranslationsByLanguage } from "@i18n/utils";
 import { getLanguageFromUrl } from "@lib/getLanguageFromUrl";
+import { cn } from "@lib/tailwind";
+import { Icon } from "astro-icon/components";
 import { getRelativeLocaleUrl } from "astro:i18n";
 
 const fromPage = Astro.url.searchParams.get('page') || '1';
 const userLanguage = getLanguageFromUrl(Astro.url);
 const translations = getTranslationsByLanguage(userLanguage);
 ---
-<a href="#" type="button" class="pointer-events-none cursor-not-allowed" id="backButton">
-  {translations.backButton.GO_BACK}
-</a>
+<div class="fixed z-20 bottom-12 right-10">
+  <a
+    href="#"
+    class={cn("h-8 rounded-md inline-flex items-center gap-3 transition-colors",
+      "bg-brandGray-200 bg-opacity-50 dark:bg-brandGray-800 dark:bg-opacity-50 hover:bg-opacity-100 focus:bg-opacity-100 shadow-sm hover:shadow focus:shadow",
+      "pointer-events-none cursor-not-allowed px-2")}
+    id="backButton"
+  >
+    <Icon name="u-turn" class="rotate-90 w-4" />
+    <span class="text-xl">{translations.backButton.GO_BACK}</span>
+  </a>
+</div>
 
 <script is:inline>
   (() => {
@@ -21,7 +32,12 @@ const translations = getTranslationsByLanguage(userLanguage);
 
     const url = new URL(window.location.href);
     const searchParams = new URLSearchParams(window.location.search);
-    const page = searchParams.get('page') || 1;
+    const page = searchParams.get('page');
+
+    if (!page) {
+      linkElement.parentNode.removeChild(linkElement);
+      return;
+    }
 
     const pathname = url.pathname.slice(0, url.pathname.indexOf('blog/entry')+5) + String(page);
     linkElement.setAttribute('href', pathname);

@@ -22,7 +22,7 @@ const title = translations.pages.ENTRIES_PAGE_TITLE.replace('{page}', String(pag
 ---
 <BlogLayout title={title}>
   <ul class:list={[
-    'flex flex-col gap-8 mb-2 px-2 pt-4 pb-4 relative',
+    'container flex flex-col gap-8 mb-2 px-2 pt-4 pb-4 relative',
     'before:absolute before:content-[""] before:block before:w-1 before:h-[125%] before:top-[50%] before:-translate-y-[50%] before:translate-x-[50%] before:bg-brandGradientVertical dark:before:opacity-25',
   ]}>
     {entries.map((entry) => (

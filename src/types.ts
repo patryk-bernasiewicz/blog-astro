@@ -7,6 +7,7 @@ export type BlogPostSkeleton = {
     excerpt: contentful.EntryFieldTypes.RichText;
     body: contentful.EntryFieldTypes.RichText;
     slug: contentful.EntryFieldTypes.Text;
+    coverImage: contentful.EntryFieldTypes.AssetLink[];
   };
 };
 

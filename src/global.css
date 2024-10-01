@@ -45,12 +45,16 @@ body {
   }
 
   .container {
-    @apply max-w-[1200px] mx-auto px-4;
+    @apply max-w-[1200px] mx-auto px-8;
   }
 
   button,
   a {
     @apply focus:ring-4 focus:ring-primary focus-within:ring-4 focus-within:ring-primary focus:outline-none;
+  }
+
+  .text-backdrop {
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5), 2px 2px 8px rgba(0, 0, 0, 0.8);
   }
 
   .blog-content h1,

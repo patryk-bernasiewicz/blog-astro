@@ -1,4 +1,5 @@
 ---
+import { getRelativeLocaleUrl } from 'astro:i18n';
 import { Icon } from "astro-icon/components";
 
 import { SITE_TITLE } from "@consts";
@@ -15,13 +16,22 @@ const translations = getTranslationsByLanguage(userLanguage);
 const pages = await getPagesList(userLanguage);
 ---
 
-<header class="w-full fixed z-10 shadow-lg bg-brandGray-50 dark:bg-brandGray-800">
-  <nav class="container flex items-center h-12">
-    <h1 class="mr-2"><a href="/">{SITE_TITLE}</a></h1>
+<header
+  class={cn(
+    "h-12 w-full fixed flex z-20 shadow-lg bg-brandGray-50 dark:bg-brandGray-800",
+    "dark:[&.scrolled-down]:bg-brandGray-900 [&.scrolled-down]:h-10 [&.scrolled-down]:bg-opacity-75 dark:[&.scrolled-down]:bg-opacity-75 [&.scrolled-down]:backdrop-blur-sm"
+  )}
+  id="header"
+>
+  <nav class="container flex items-center">
+    <h1 class="mr-2 text-xl">
+      <a href={getRelativeLocaleUrl(userLanguage, '/blog/1')}>{SITE_TITLE}</a>
+    </h1>
     <div
       class={cn(
-        "absolute z-10 top-12 left-0 shadow-lg right-0",
+        "absolute z-10 top-12 [.scrolled-down_&]:top-10 left-0 shadow-lg right-0",
         "bg-brandGray-50 dark:bg-brandGray-900 grid !grid-rows-[0fr] grid-rows-[1fr] transition-[template-grid-rows] duration-200 overflow-hidden",
+        "dark:[.scrolled-down_&]:bg-brandGray-900 [.scrolled-down_&]:bg-opacity-85 dark:[.scrolled-down_&]:bg-opacity-85 [.scrolled-down_&]:backdrop-blur-sm",
         "md:bg-transparent dark:md:bg-transparent md:static md:flex md:flex-row md:items-center md:overflow-visible md:shadow-none md:ml-auto"
       )}
       id="menu"
@@ -65,11 +75,32 @@ const pages = await getPagesList(userLanguage);
     </button>
   </nav>
 </header>
-<script>
+<script is:inline data-astro-rerun>
   (() => {
+    const header = document.getElementById('header');
     const menu = document.getElementById("menu");
     const menuButton = document.querySelector("button");
     const menuExpander = document.getElementById("menu-expander");
+
+    let scrollTimer;
+    
+    const debouncedScrollGuard = () => {
+      clearTimeout(scrollTimer);
+
+      if (!header) {
+        return;
+      }
+
+      scrollTimer = setTimeout(() => {
+        if (window.scrollY > 0) {
+          header.classList.add('scrolled-down');
+        } else {
+          header.classList.remove('scrolled-down');
+        }
+      }, 50);
+    }
+    debouncedScrollGuard();
+    window.addEventListener('scroll', debouncedScrollGuard);
 
     if (menu && menuButton && menuExpander) {
       menuButton.addEventListener("click", () => {

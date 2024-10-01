@@ -48,7 +48,7 @@ const translations = getTranslationsByLanguage(userLanguage);
   >
   </div>
 </label>
-<script is:inline>
+<script is:inline data-astro-rerun>
   (() => {
     const themeSwitch = document.getElementById(
       "theme-switch"
@@ -79,6 +79,7 @@ const translations = getTranslationsByLanguage(userLanguage);
     document.addEventListener('astro:after-swap', function () {
       if (localStorage.getItem('theme') === 'dark') {
         document.documentElement.classList.toggle('dark', true);
+        themeSwitch.checked = true;
       }
     });
   })();

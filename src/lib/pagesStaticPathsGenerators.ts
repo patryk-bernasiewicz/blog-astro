@@ -7,9 +7,18 @@ import {
   type PageContentSkeleton,
 } from "@types";
 import { BLOG_PAGE_SIZE } from "@consts";
+import type { Document } from "@contentful/rich-text-types";
+import type { Asset, UnresolvedLink } from "contentful";
+
+export interface BlogEntryProps {
+  title: string;
+  excerpt: Document;
+  body: Document;
+  coverImage: Asset<undefined, string>[];
+}
 
 export const getSingleBlogEntryStaticPaths =
-  (language: Language = Language.pl): GetStaticPaths =>
+  (language: Language = Language.pl) =>
   async () => {
     const entries = await contentfulClient.getEntries<BlogPostSkeleton>({
       content_type: "blogPost",
@@ -22,7 +31,8 @@ export const getSingleBlogEntryStaticPaths =
         title: item.fields.title,
         excerpt: item.fields.excerpt,
         body: item.fields.body,
-      },
+        coverImage: item.fields.coverImage,
+      } as BlogEntryProps,
     }));
   };
 
