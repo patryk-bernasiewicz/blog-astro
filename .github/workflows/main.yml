@@ -1,6 +1,8 @@
 name: Deploy blog to VPS
 
 on:
+  repository_dispatch:
+    types: [publish-event]
   push:
     branches:
       - main
