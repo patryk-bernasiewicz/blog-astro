@@ -14,5 +14,5 @@ const { title, body, coverImage } = Astro.props;
 <BlogSingleEntry
   title={title}
   body={body}
-  coverImageUrl={coverImage[0].fields.file?.url}
+  coverImageUrl={coverImage?.[0]?.fields.file?.url}
 />
