@@ -19,6 +19,31 @@ const options: Options = {
       `<p class="mb-4">${next(node.content)}</p>`,
     [BLOCKS.HEADING_2]: (node, next) =>
       `<h2 class="text-lg">${next(node.content)}</h2>`,
+    [BLOCKS.EMBEDDED_ASSET]: (node) => {
+      const { title, description, file } = node.data.target.fields;
+      return `
+        <a
+          href="${node.data.target.fields.file.url}"
+          class="my-8 block"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          <figure class="flex flex-col items-center gap-2">
+            <img
+              class="w-full max-w-[80%] bg-brandGray-200 dark:bg-brandGray-700 rounded-sm lazy-image [&[data-src]]:blur-md"
+              width="${file.details.image.width}"
+              height="${file.details.image.height}"
+              src=""
+              data-src="${file.url}"
+              alt="${title}"
+            />
+            ${title || description ? `<figcaption class="text-center w-full max-w-[80%] flex flex-col gap-1">
+              ${title ? `<span class="text-sm">${title}</span>` : ''}
+              ${description ? `<span class="text-xs">${description}</span>` : ''}
+            </figcaption>` : ''}
+          </figure>
+        </a>`;
+    },
     [INLINES.HYPERLINK]: (node, next) =>
       `<a href="${node.data.uri}" class="text-primary hover:underline">${next(node.content)}</a>`,
   },
@@ -64,6 +89,29 @@ const bodyHtmlContent = documentToHtmlString(body, options);
   Prism.manual = true;
   document.addEventListener('astro:page-load', () => {
     Prism.highlightAll();
+
+    // lazy loading
+    const lazyImages = document.querySelectorAll('.lazy-image');
+    
+    const observerCallback = (entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          if (!entry.target.hasAttribute('data-src')) {
+            return;
+          }
+
+          const targetSrc = entry.target.getAttribute('data-src');
+          entry.target.setAttribute('src', targetSrc);
+          entry.target.removeAttribute('data-src');
+        }
+      });
+    };
+
+    const observer = new IntersectionObserver(observerCallback);
+
+    lazyImages.forEach((image) => {
+      observer.observe(image);
+    });
   });
 </script>
 <script is:inline src="https://cdnjs.cloudflare.com/ajax/libs/prism/9000.0.1/prism.min.js" data-manual />

@@ -18,7 +18,7 @@ const pages = await getPagesList(userLanguage);
 
 <header
   class={cn(
-    "h-12 w-full fixed flex z-20 shadow-lg bg-brandGray-50 dark:bg-brandGray-800",
+    "group h-12 w-full fixed flex z-20 shadow-lg bg-brandGray-50 dark:bg-brandGray-800",
     "dark:[&.scrolled-down]:bg-brandGray-900 [&.scrolled-down]:h-10 [&.scrolled-down]:bg-opacity-75 dark:[&.scrolled-down]:bg-opacity-75 [&.scrolled-down]:backdrop-blur-sm"
   )}
   id="header"
@@ -29,10 +29,11 @@ const pages = await getPagesList(userLanguage);
     </h1>
     <div
       class={cn(
-        "absolute z-10 top-12 [.scrolled-down_&]:top-10 left-0 shadow-lg right-0",
+        "absolute z-10 top-12 group-[.scrolled-down]:top-10 left-0 shadow-lg right-0",
         "bg-brandGray-50 dark:bg-brandGray-900 grid !grid-rows-[0fr] grid-rows-[1fr] transition-[template-grid-rows] duration-200 overflow-hidden",
-        "dark:[.scrolled-down_&]:bg-brandGray-900 [.scrolled-down_&]:bg-opacity-85 dark:[.scrolled-down_&]:bg-opacity-85 [.scrolled-down_&]:backdrop-blur-sm",
-        "md:bg-transparent dark:md:bg-transparent md:static md:flex md:flex-row md:items-center md:overflow-visible md:shadow-none md:ml-auto"
+        "dark:group-[.scrolled-down]:bg-brandGray-900 group-[.scrolled-down]:bg-opacity-85 dark:group-[.scrolled-down]:bg-opacity-85 group-[.scrolled-down]:backdrop-blur-sm",
+        "md:static md:flex md:flex-row md:items-center md:overflow-visible md:shadow-none md:ml-auto",
+        "md:!bg-transparent md:!backdrop-blur-none"
       )}
       id="menu"
     >
