@@ -9,7 +9,7 @@ import {
 } from "@types";
 import { BLOG_PAGE_SIZE } from "@consts";
 import type { Document } from "@contentful/rich-text-types";
-import type { Asset, UnresolvedLink } from "contentful";
+import type { Asset } from "contentful";
 
 export interface BlogEntryProps {
   title: string;
@@ -69,7 +69,7 @@ export const getPaginatedBlogPosts = async (
       ? (item.fields
           .coverImage as unknown as BlogPostSkeleton["fields"]["coverImage"])
       : undefined,
-  }));
+  })) as BlogPost[];
 
   return paginate(items, { pageSize: BLOG_PAGE_SIZE });
 };

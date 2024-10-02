@@ -24,6 +24,5 @@ jobs:
             source ~/.bashrc
             cd /var/www/patrykb.pl
             git pull origin main
-            pnpm i
-            pnpm build
-          
+            pnpm i --reporter=silent
+            pnpm build --silent

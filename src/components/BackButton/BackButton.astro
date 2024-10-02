@@ -3,9 +3,7 @@ import { getTranslationsByLanguage } from "@i18n/utils";
 import { getLanguageFromUrl } from "@lib/getLanguageFromUrl";
 import { cn } from "@lib/tailwind";
 import { Icon } from "astro-icon/components";
-import { getRelativeLocaleUrl } from "astro:i18n";
 
-const fromPage = Astro.url.searchParams.get('page') || '1';
 const userLanguage = getLanguageFromUrl(Astro.url);
 const translations = getTranslationsByLanguage(userLanguage);
 ---

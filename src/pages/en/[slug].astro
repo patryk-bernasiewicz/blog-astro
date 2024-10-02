@@ -18,7 +18,6 @@ const entry = await contentfulClient.getEntry<PageContentSkeleton, ContentfulLoc
 );
 const content = documentToHtmlString(entry.fields.content);
 ---
-
 <Layout
   title={entry.fields.title}
   description="Lorem ipsum dolor sit amet"

@@ -1,6 +1,5 @@
 ---
 import type {
-  InferGetStaticParamsType,
   InferGetStaticPropsType,
   GetStaticPaths,
 } from "astro";
@@ -13,14 +12,9 @@ export const getStaticPaths = (async ({ paginate }) => {
   return await getPaginatedBlogPosts(paginate, Language.pl);
 }) satisfies GetStaticPaths;
 
-// type Params = InferGetStaticParamsType<typeof getStaticPaths>;
 type Props = InferGetStaticPropsType<typeof getStaticPaths>;
 
 const { page } = Astro.props as Props;
-
-const entries = Astro.props.page.data;
 ---
-<BlogEntries
-  page={page}
-  entries={entries}
-/>
+<BlogEntries page={page} />
+
