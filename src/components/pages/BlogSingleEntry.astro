@@ -87,31 +87,7 @@ const bodyHtmlContent = documentToHtmlString(body, options);
 <script is:inline>
   window.Prism = window.Prism || {};
   Prism.manual = true;
-  document.addEventListener('astro:page-load', () => {
-    Prism.highlightAll();
-
-    // lazy loading
-    const lazyImages = document.querySelectorAll('.lazy-image');
-    
-    const observerCallback = (entries) => {
-      entries.forEach((entry) => {
-        if (entry.isIntersecting) {
-          if (!entry.target.hasAttribute('data-src')) {
-            return;
-          }
-
-          const targetSrc = entry.target.getAttribute('data-src');
-          entry.target.setAttribute('src', targetSrc);
-          entry.target.removeAttribute('data-src');
-        }
-      });
-    };
-
-    const observer = new IntersectionObserver(observerCallback);
-
-    lazyImages.forEach((image) => {
-      observer.observe(image);
-    });
-  });
+  document.addEventListener('astro:page-load', () => Prism.highlightAll());
 </script>
 <script is:inline src="https://cdnjs.cloudflare.com/ajax/libs/prism/9000.0.1/prism.min.js" data-manual />
+<script src="@/scripts/lazy-load-images.ts"></script>

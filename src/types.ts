@@ -1,4 +1,13 @@
+import type { Document } from "@contentful/rich-text-types";
 import * as contentful from "contentful";
+
+export type BlogPost = {
+  title: string;
+  excerpt: Document;
+  body: Document;
+  slug: string;
+  coverImage: contentful.Asset[];
+};
 
 export type BlogPostSkeleton = {
   contentTypeId: "blogPost";
@@ -7,7 +16,7 @@ export type BlogPostSkeleton = {
     excerpt: contentful.EntryFieldTypes.RichText;
     body: contentful.EntryFieldTypes.RichText;
     slug: contentful.EntryFieldTypes.Text;
-    coverImage: contentful.EntryFieldTypes.AssetLink[];
+    coverImage: contentful.Asset[];
   };
 };
 

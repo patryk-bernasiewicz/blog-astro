@@ -3,6 +3,7 @@ import type { GetStaticPaths, PaginateFunction } from "astro";
 import { contentfulClient, languageToContentfulLocale } from "@lib/contentful";
 import {
   Language,
+  type BlogPost,
   type BlogPostSkeleton,
   type PageContentSkeleton,
 } from "@types";
@@ -59,7 +60,18 @@ export const getPaginatedBlogPosts = async (
     locale: languageToContentfulLocale[language],
   });
 
-  return paginate(entries.items, { pageSize: BLOG_PAGE_SIZE });
+  const items = entries.items.map((item) => ({
+    title: item.fields.title,
+    excerpt: item.fields.excerpt,
+    body: item.fields.body,
+    slug: item.fields.slug,
+    coverImage: item.fields.coverImage
+      ? (item.fields
+          .coverImage as unknown as BlogPostSkeleton["fields"]["coverImage"])
+      : undefined,
+  }));
+
+  return paginate(items, { pageSize: BLOG_PAGE_SIZE });
 };
 
 export const getPagesList = async (language: Language = Language.pl) => {

@@ -18,36 +18,37 @@ const language = getLanguageFromUrl(Astro.url);
 const translations = getTranslationsByLanguage(language);
 
 ---
-
-<nav class="flex items-center justify-center opacity-50 hover:opacity-100 focus-within:opacity-100 pb-4">
-  <ul class="flex items-center gap-4">
-    <li>
-      <PaginationLink
-        href={prevUrl}
-        text={translations.pagination.BUTTON_PREVIOUS}
-      />
-    </li>
-    {pageLinks.map((_, index) => {
-      const pageNum = index + 1;
-      const isActive = pageNum === current;
-      const href = `/blog/${pageNum}`;
-      
-      return (
-        <li>
-          <PaginationLink
-            number
-            isActive={isActive}
-            href={href}
-            text={String(pageNum)}
-          />
-        </li>
-      );
-    })}
-    <li>
-      <PaginationLink
-        href={nextUrl}
-        text={translations.pagination.BUTTON_NEXT}
-      />
-    </li>
-  </ul>
-</nav>
+{total > 1 ? (
+  <nav class="flex items-center justify-center opacity-50 hover:opacity-100 focus-within:opacity-100 pb-4">
+    <ul class="flex items-center gap-4">
+      <li>
+        <PaginationLink
+          href={prevUrl}
+          text={translations.pagination.BUTTON_PREVIOUS}
+        />
+      </li>
+      {pageLinks.map((_, index) => {
+        const pageNum = index + 1;
+        const isActive = pageNum === current;
+        const href = `/blog/${pageNum}`;
+        
+        return (
+          <li>
+            <PaginationLink
+              number
+              isActive={isActive}
+              href={href}
+              text={String(pageNum)}
+            />
+          </li>
+        );
+      })}
+      <li>
+        <PaginationLink
+          href={nextUrl}
+          text={translations.pagination.BUTTON_NEXT}
+        />
+      </li>
+    </ul>
+  </nav>
+) : null}
