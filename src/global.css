@@ -66,6 +66,6 @@ body {
     @apply mb-[0.35em] mt-[0.5em];
   }
   .blog-content hr {
-    @apply border-b border-primary opacity-25;
+    @apply border-b border-brandGray-300 dark:border-brandGray-400 opacity-25;
   }
 }

@@ -5,6 +5,8 @@ import "dotenv/config";
 
 import icon from "astro-icon";
 
+import compress from "astro-compress";
+
 // https://astro.build/config
 export default defineConfig({
   site: process.env.SITE_URL || "http://localhost:8080",
@@ -17,6 +19,7 @@ export default defineConfig({
       applyBaseStyles: false,
     }),
     icon(),
+    compress(),
   ],
   i18n: {
     defaultLocale: "pl",

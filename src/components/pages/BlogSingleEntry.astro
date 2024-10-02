@@ -76,7 +76,11 @@ const bodyHtmlContent = documentToHtmlString(body, options);
       "after:dark:from-transparent after:dark:to-brandGray-800",
       "after:w-[calc(100%_+_256px)] after:-mx-32"
     )}>
-      <img src={coverImageUrl} alt={title} class="w-[calc(100%_+_256px)] -mx-32 max-w-none block z-0" />
+      <img
+        data-src={coverImageUrl}
+        alt={title}
+        class="w-[calc(100%_+_256px)] -mx-32 max-w-none block z-0 lazy-image"
+      />
     </div>
   )}
   <div class="relative container mt-2 mb-0 flex flex-col">
