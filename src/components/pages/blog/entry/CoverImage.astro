@@ -1,0 +1,27 @@
+---
+import { cn } from "@lib/tailwind";
+
+interface Props {
+  url: string;
+}
+
+const { url } = Astro.props;
+
+/**
+ * Lazy-loaded cover image.
+ * It serves as a background for the blog entry title, and has a gradient leading to
+ * the background color towards the bottom of its container.
+ */
+---
+
+<div
+  class={cn(
+    "relative -mb-[25vh] h-[50vh] w-full overflow-hidden bg-cover",
+    "after:h-64 after:absolute after:left-0 after:bottom-0 after:right-0 after:-mt-64 after:block after:content-[''] after:bg-gradient-to-b",
+    "after:from-transparent after:to-brandGray-50",
+    "after:dark:from-transparent after:dark:to-brandGray-800",
+    "after:w-[calc(100%_+_256px)] after:-mx-32"
+  )}
+  style={`background-image: url('${url}')`}
+>
+</div>

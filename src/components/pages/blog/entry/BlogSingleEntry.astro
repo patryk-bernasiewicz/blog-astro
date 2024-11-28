@@ -1,9 +1,18 @@
 ---
-import { documentToHtmlString, type Options } from '@contentful/rich-text-html-renderer';
-import { BLOCKS, INLINES, MARKS, type Document } from '@contentful/rich-text-types';
+import {
+  documentToHtmlString,
+  type Options,
+} from "@contentful/rich-text-html-renderer";
+import {
+  BLOCKS,
+  INLINES,
+  MARKS,
+  type Document,
+} from "@contentful/rich-text-types";
 import BackButton from "@components/BackButton/BackButton.astro";
-import BlogLayout from '@layouts/BlogLayout.astro';
-import { cn } from '@lib/tailwind';
+import BlogLayout from "@layouts/BlogLayout.astro";
+
+import CoverImage from "./CoverImage.astro";
 
 interface Props {
   title: string;
@@ -17,8 +26,12 @@ const options: Options = {
   renderNode: {
     [BLOCKS.PARAGRAPH]: (node, next) =>
       `<p class="mb-4">${next(node.content)}</p>`,
+    [BLOCKS.HEADING_1]: (node, next) =>
+      `<h1 class="text-lg md:text-2xl">${next(node.content)}</h1>`,
     [BLOCKS.HEADING_2]: (node, next) =>
-      `<h2 class="text-lg">${next(node.content)}</h2>`,
+      `<h2 class="text-md md:text-lg">${next(node.content)}</h2>`,
+    [BLOCKS.HEADING_3]: (node, next) =>
+      `<h3 class="text-md md:text-xl">${next(node.content)}</h3>`,
     [BLOCKS.EMBEDDED_ASSET]: (node) => {
       const { title, description, file } = node.data.target.fields;
       return `
@@ -37,10 +50,14 @@ const options: Options = {
               data-src="${file.url}"
               alt="${title}"
             />
-            ${title || description ? `<figcaption class="text-center w-full max-w-[80%] flex flex-col gap-1">
-              ${title ? `<span class="text-sm">${title}</span>` : ''}
-              ${description ? `<span class="text-xs">${description}</span>` : ''}
-            </figcaption>` : ''}
+            ${
+              title || description
+                ? `<figcaption class="text-center w-full max-w-[80%] flex flex-col gap-1">
+              ${title ? `<span class="text-sm">${title}</span>` : ""}
+              ${description ? `<span class="text-xs">${description}</span>` : ""}
+            </figcaption>`
+                : ""
+            }
           </figure>
         </a>`;
     },
@@ -57,7 +74,7 @@ const options: Options = {
       }
 
       const language = match[1];
-      let code = text.replace(regex, '').trim();
+      let code = text.replace(regex, "").trim();
 
       return `<pre><code class="language-${language}">${code}</code></pre>`;
     },
@@ -66,32 +83,29 @@ const options: Options = {
 
 const bodyHtmlContent = documentToHtmlString(body, options);
 ---
+
 <BlogLayout title={title}>
   <BackButton />
-  {coverImageUrl && (
-    <div class={cn(
-      "relative -mb-[25vh] max-h-[50vh] w-full overflow-hidden",
-      "after:h-64 after:absolute after:left-0 after:bottom-0 after:right-0 after:-mt-64 after:block after:content-[''] after:bg-gradient-to-b",
-      "after:from-transparent after:to-brandGray-50",
-      "after:dark:from-transparent after:dark:to-brandGray-800",
-      "after:w-[calc(100%_+_256px)] after:-mx-32"
-    )}>
-      <img
-        data-src={coverImageUrl}
-        alt={title}
-        class="w-[calc(100%_+_256px)] -mx-32 max-w-none block z-0 lazy-image"
-      />
-    </div>
-  )}
+  {coverImageUrl && <CoverImage url={coverImageUrl} />}
   <div class="relative container mt-2 mb-0 flex flex-col">
-    <h2 class="text-6xl text-white text-backdrop mx-6 mt-2 mb-4">{title}</h2>
-    <div class="blog-content shadow-lg bg-brandGray-50 bg-opacity-90 dark:bg-brandGray-800 dark:bg-opacity-90 backdrop-blur-sm z-10 mb-0 px-8 pt-6 pb-12" set:html={bodyHtmlContent} />
+    <h2
+      class="text-2xl text-white text-backdrop mx-6 mt-2 mb-4 lg:text-4xl xl:text-6xl"
+    >
+      {title}
+    </h2>
+    <div
+      class="blog-content shadow-lg bg-brandGray-50 bg-opacity-90 dark:bg-brandGray-800 dark:bg-opacity-90 backdrop-blur-sm z-10 mb-0 px-8 pt-6 pb-12"
+      set:html={bodyHtmlContent}
+    />
   </div>
 </BlogLayout>
 <script is:inline>
   window.Prism = window.Prism || {};
   Prism.manual = true;
-  document.addEventListener('astro:page-load', () => Prism.highlightAll());
+  document.addEventListener("astro:page-load", () => Prism.highlightAll());
 </script>
-<script is:inline src="https://cdnjs.cloudflare.com/ajax/libs/prism/9000.0.1/prism.min.js" data-manual />
+<script
+  is:inline
+  src="https://cdnjs.cloudflare.com/ajax/libs/prism/9000.0.1/prism.min.js"
+  data-manual></script>
 <script src="@/scripts/lazy-load-images.ts"></script>

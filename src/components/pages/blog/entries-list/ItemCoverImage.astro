@@ -1,0 +1,28 @@
+---
+import { cn } from "@lib/tailwind";
+
+interface Props {
+  url: string;
+  title?: string | { [x: string]: string | undefined };
+  width?: number;
+  height?: number;
+  className: HTMLDivElement["className"];
+}
+
+const { url, title, width, height, className } = Astro.props;
+const imageWidth = Number(width) ?? 300;
+const imageHeight = Number(height) ?? Math.floor((imageWidth * 9) / 16);
+---
+
+<img
+  src=""
+  data-src={url}
+  alt={typeof title === "object" ? Object.values(title)[0] : title}
+  width={imageWidth}
+  height={imageHeight}
+  class={cn(
+    "hidden md:block",
+    "rounded-lg w-full aspect-[16/9] object-cover lazy-image md:max-w-96",
+    className
+  )}
+/>

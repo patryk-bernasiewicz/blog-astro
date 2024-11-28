@@ -1,11 +1,8 @@
 ---
-import type {
-  InferGetStaticPropsType,
-  GetStaticPaths,
-} from "astro";
+import type { InferGetStaticPropsType, GetStaticPaths } from "astro";
 
 import { getPaginatedBlogPosts } from "@lib/pagesStaticPathsGenerators";
-import BlogEntries from "@components/pages/BlogEntries.astro";
+import BlogEntries from "@components/pages/blog/entries-list/BlogEntries.astro";
 import { Language } from "@types";
 
 export const getStaticPaths = (async ({ paginate }) => {
@@ -16,5 +13,5 @@ type Props = InferGetStaticPropsType<typeof getStaticPaths>;
 
 const { page } = Astro.props as Props;
 ---
-<BlogEntries page={page} />
 
+<BlogEntries page={page} />

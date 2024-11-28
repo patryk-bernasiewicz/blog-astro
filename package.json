@@ -10,20 +10,20 @@
     "astro": "astro"
   },
   "dependencies": {
-    "@astrojs/check": "^0.9.3",
-    "@astrojs/mdx": "^3.1.7",
+    "@astrojs/check": "^0.9.4",
+    "@astrojs/mdx": "^3.1.9",
     "@astrojs/prism": "^3.1.0",
-    "@astrojs/rss": "^4.0.7",
-    "@astrojs/sitemap": "^3.1.6",
-    "@astrojs/tailwind": "^5.1.1",
-    "@contentful/rich-text-html-renderer": "^16.6.8",
-    "astro": "^4.15.9",
-    "astro-compress": "^2.3.1",
-    "astro-icon": "^1.1.0",
-    "contentful": "^10.13.2",
-    "tailwind-merge": "^2.5.2",
-    "tailwindcss": "^3.4.9",
-    "typescript": "^5.5.4"
+    "@astrojs/rss": "^4.0.9",
+    "@astrojs/sitemap": "^3.2.1",
+    "@astrojs/tailwind": "^5.1.2",
+    "@contentful/rich-text-html-renderer": "^16.6.10",
+    "astro": "^4.16.16",
+    "astro-compress": "^2.3.5",
+    "astro-icon": "^1.1.4",
+    "contentful": "^10.15.1",
+    "tailwind-merge": "^2.5.5",
+    "tailwindcss": "^3.4.15",
+    "typescript": "^5.7.2"
   },
   "pnpm": {
     "overrides": {
@@ -33,6 +33,6 @@
   "devDependencies": {
     "@contentful/rich-text-types": "^16.8.5",
     "dotenv": "^16.4.5",
-    "lightningcss": "^1.27.0"
+    "lightningcss": "^1.28.2"
   }
 }

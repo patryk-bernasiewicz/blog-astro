@@ -1,7 +1,7 @@
 ---
 import type { InferGetStaticPropsType } from "astro";
 
-import BlogSingleEntry from "@components/pages/BlogSingleEntry.astro";
+import BlogSingleEntry from "@components/pages/blog/entry/BlogSingleEntry.astro";
 import { getSingleBlogEntryStaticPaths } from "@lib/pagesStaticPathsGenerators";
 import { Language } from "@types";
 
@@ -11,6 +11,7 @@ export const getStaticPaths = getSingleBlogEntryStaticPaths(Language.pl);
 
 const { title, body, coverImage } = Astro.props;
 ---
+
 <BlogSingleEntry
   title={title}
   body={body}
