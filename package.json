@@ -11,13 +11,12 @@
   },
   "dependencies": {
     "@astrojs/check": "^0.9.4",
-    "@astrojs/mdx": "^3.1.9",
-    "@astrojs/prism": "^3.1.0",
-    "@astrojs/rss": "^4.0.9",
+    "@astrojs/mdx": "^4.0.3",
+    "@astrojs/prism": "^3.2.0",
+    "@astrojs/rss": "^4.0.10",
     "@astrojs/sitemap": "^3.2.1",
-    "@astrojs/tailwind": "^5.1.2",
-    "@contentful/rich-text-html-renderer": "^16.6.10",
-    "astro": "^4.16.16",
+    "@astrojs/tailwind": "^5.1.4",
+    "astro": "^5.1.1",
     "astro-compress": "^2.3.5",
     "astro-icon": "^1.1.4",
     "contentful": "^10.15.1",
@@ -31,6 +30,7 @@
     }
   },
   "devDependencies": {
+    "@contentful/rich-text-html-renderer": "^16.6.10",
     "@contentful/rich-text-types": "^16.8.5",
     "dotenv": "^16.4.5",
     "lightningcss": "^1.28.2"

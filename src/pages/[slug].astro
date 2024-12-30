@@ -2,7 +2,11 @@
 import { documentToHtmlString } from "@contentful/rich-text-html-renderer";
 
 import Layout from "@layouts/BlogLayout.astro";
-import { contentfulClient, languageToContentfulLocale, type ContentfulLocale } from "@lib/contentful";
+import {
+  contentfulClient,
+  languageToContentfulLocale,
+  type ContentfulLocale,
+} from "@lib/contentful";
 import { getCustomPageStaticPaths } from "@lib/pagesStaticPathsGenerators";
 
 import type { PageContentSkeleton } from "@types";
@@ -16,9 +20,10 @@ const entries = await contentfulClient.getEntries<PageContentSkeleton>({
   "fields.slug": String(slug),
   locale: languageToContentfulLocale[defaultLanguage],
 });
-const entry = await contentfulClient.getEntry<PageContentSkeleton, ContentfulLocale>(
-  entries.items[0].sys.id
-);
+const entry = await contentfulClient.getEntry<
+  PageContentSkeleton,
+  ContentfulLocale
+>(entries.items[0].sys.id);
 const content = documentToHtmlString(entry.fields.content);
 ---
 
