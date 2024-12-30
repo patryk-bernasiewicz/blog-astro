@@ -21,12 +21,14 @@ const { title, description, image = "/blog-placeholder-1.jpg" } = Astro.props;
 <link rel="preconnect" href="https://fonts.googleapis.com" />
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
 <link
+  rel="preload"
+  href="https://fonts.googleapis.com/css2?family=Sen:wght@400..800&display=swap"
+  as="style"
+/>
+<link
   href="https://fonts.googleapis.com/css2?family=Sen:wght@400..800&display=swap"
   rel="stylesheet"
 />
-<style>
-  
-</style>
 <meta name="generator" content={Astro.generator} />
 
 <!-- Canonical URL -->
