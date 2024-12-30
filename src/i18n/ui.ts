@@ -11,6 +11,7 @@ export const ui: UiTranslations = {
   [Language.pl]: {
     pages: {
       ENTRIES_PAGE_TITLE: "Wpisy na blogu, strona {page}",
+      ENTRIES_PAGE_HEADING: "Ostatnie wpisy",
     },
     backButton: {
       GO_BACK: "Wróć",
@@ -40,6 +41,7 @@ export const ui: UiTranslations = {
   [Language.en]: {
     pages: {
       ENTRIES_PAGE_TITLE: "Blog entries, page {page}",
+      ENTRIES_PAGE_HEADING: "Latest entries",
     },
     backButton: {
       GO_BACK: "Go back",

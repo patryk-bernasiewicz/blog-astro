@@ -1,17 +1,21 @@
 ---
+import { Icon } from "astro-icon/components";
+
 interface Props {
-	date: Date;
+  date: Date;
+  startIcon?: string;
 }
 
-const { date } = Astro.props;
+const { date, startIcon } = Astro.props;
 ---
 
+{startIcon && <Icon name={startIcon} />}
 <time datetime={date.toISOString()}>
-	{
-		date.toLocaleDateString('en-us', {
-			year: 'numeric',
-			month: 'short',
-			day: 'numeric',
-		})
-	}
+  {
+    date.toLocaleDateString("en-us", {
+      year: "numeric",
+      month: "short",
+      day: "numeric",
+    })
+  }
 </time>

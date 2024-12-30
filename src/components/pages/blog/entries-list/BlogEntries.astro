@@ -7,8 +7,8 @@ import type { BlogPost } from "@types";
 import { getLanguageFromUrl } from "@lib/getLanguageFromUrl";
 import BlogLayout from "@layouts/BlogLayout.astro";
 import { getTranslationsByLanguage } from "@i18n/utils";
-import { cn } from "@lib/tailwind";
-import ItemCoverImage from "./ItemCoverImage.astro";
+import { Icon } from "astro-icon/components";
+import FormattedDate from "@components/FormattedDate.astro";
 
 interface Props {
   page: Page<BlogPost>;
@@ -25,51 +25,48 @@ const title = translations.pages.ENTRIES_PAGE_TITLE.replace(
 ---
 
 <BlogLayout title={title}>
-  <ul
-    class:list={[
-      "container overflow-hidden flex-grow flex flex-col gap-8 px-2 pt-6 pb-8 relative",
-    ]}
+  <div
+    class="container-small overflow-hidden flex-grow px-2 pt-6 pb-8 flex flex-col gap-4"
   >
-    {
-      page.data.map((entry) => {
-        const coverImage = entry.coverImage?.[0]?.fields;
-        return (
-          <li>
-            <a
-              href={`${getRelativeLocaleUrl(userLanguage, `/blog/entry/${entry.slug}`)}?page=${page.currentPage}`}
-              class="link flex flex-col gap-4 group md:gap-6 md:flex-row"
-            >
-              {typeof coverImage?.file?.details === "object" &&
-              "image" in coverImage.file.details ? (
-                <div class="flex shrink-0 items-center w-[15rem]">
-                  <ItemCoverImage
-                    url={String(coverImage.file.url)}
-                    title={coverImage.title || entry.title}
-                    width={coverImage.file.details.image?.width}
-                    height={coverImage.file.details.image?.height}
-                    className={cn(
-                      "opacity-75 transition-opacity duration-300",
-                      "group-hover:opacity-100 group-focus-within:opacity-100"
+    <h2>{translations.pages.ENTRIES_PAGE_HEADING}</h2>
+    <ul class="flex mt-4 flex-col gap-10 relative">
+      {
+        page.data.map((entry) => {
+          return (
+            <li>
+              <a
+                href={`${getRelativeLocaleUrl(userLanguage, `/blog/entry/${entry.slug}`)}?page=${page.currentPage}`}
+                class="link flex flex-col gap-4 group md:gap-6 md:flex-row"
+              >
+                <div class="flex flex-col gap-2">
+                  <h2 class="text-2xl text-brandGray-300 group-hover:text-primary">
+                    {entry.title}
+                  </h2>
+                  <div class="flex items-center gap-2 text-sm text-brandGray-400">
+                    {entry.createdAt && (
+                      <FormattedDate
+                        date={new Date(entry.createdAt)}
+                        startIcon="created"
+                      />
                     )}
-                  />
+                    {entry.updatedAt && entry.updatedAt !== entry.createdAt && (
+                      <FormattedDate
+                        date={new Date(entry.updatedAt)}
+                        startIcon="updated"
+                      />
+                    )}
+                  </div>
+                  <div class="text-body-dark dark:text-body-light">
+                    {entry.excerpt}
+                  </div>
                 </div>
-              ) : (
-                <div class="shrink-0 w-[15rem]" />
-              )}
-              <div class="flex flex-col gap-2">
-                <h2 class="text-2xl text-brandGray-300 group-hover:text-primary">
-                  {entry.title}
-                </h2>
-                <div class="text-body-dark dark:text-body-light">
-                  {entry.excerpt}
-                </div>
-              </div>
-            </a>
-          </li>
-        );
-      })
-    }
-  </ul>
+              </a>
+            </li>
+          );
+        })
+      }
+    </ul>
+  </div>
   <Pagination
     current={page.currentPage}
     total={page.lastPage}
@@ -77,4 +74,3 @@ const title = translations.pages.ENTRIES_PAGE_TITLE.replace(
     nextUrl={page.url.next}
   />
 </BlogLayout>
-<script src="@/scripts/lazy-load-images.ts"></script>

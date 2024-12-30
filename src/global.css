@@ -7,6 +7,13 @@ body {
 }
 
 @layer base {
+  :root:has(#theme-switch:checked) {
+    color-scheme: dark;
+  }
+  :root:has(#theme-switch:not(:checked)) {
+    color-scheme: light;
+  }
+
   h1,
   h2,
   h3,
@@ -45,7 +52,11 @@ body {
   }
 
   .container {
-    @apply max-w-[1200px] mx-auto px-8;
+    @apply w-full max-w-[1200px] mx-auto px-8;
+  }
+
+  .container-small {
+    @apply w-full max-w-[800px] mx-auto px-4;
   }
 
   button,

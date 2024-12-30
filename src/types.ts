@@ -7,6 +7,8 @@ export type BlogPost = {
   body: Document;
   slug: string;
   coverImage: contentful.Asset[];
+  createdAt: Date | string;
+  updatedAt: Date | string;
 };
 
 export type BlogPostSkeleton = {
@@ -17,6 +19,8 @@ export type BlogPostSkeleton = {
     body: contentful.EntryFieldTypes.RichText;
     slug: contentful.EntryFieldTypes.Text;
     coverImage: contentful.Asset[];
+    createdAt: Date | string;
+    updatedAt: Date | string;
   };
 };
 
@@ -26,6 +30,8 @@ export type PageContentSkeleton = {
     title: contentful.EntryFieldTypes.Text;
     content: contentful.EntryFieldTypes.RichText;
     slug: contentful.EntryFieldTypes.Text;
+    createdAt: Date | string;
+    updatedAt: Date | string;
   };
 };
 

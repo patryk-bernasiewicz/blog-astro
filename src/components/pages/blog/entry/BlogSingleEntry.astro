@@ -43,12 +43,12 @@ const options: Options = {
         >
           <figure class="flex flex-col items-center gap-2">
             <img
-              class="w-full max-w-[80%] bg-brandGray-200 dark:bg-brandGray-700 rounded-sm lazy-image [&[data-src]]:blur-md"
+              class="w-full max-w-[80%] bg-brandGray-200 dark:bg-brandGray-700 rounded-sm"
               width="${file.details.image.width}"
               height="${file.details.image.height}"
-              src=""
-              data-src="${file.url}"
+              src="${file.url}"
               alt="${title}"
+              loading="lazy"
             />
             ${
               title || description
@@ -108,4 +108,3 @@ const bodyHtmlContent = documentToHtmlString(body, options);
   is:inline
   src="https://cdnjs.cloudflare.com/ajax/libs/prism/9000.0.1/prism.min.js"
   data-manual></script>
-<script src="@/scripts/lazy-load-images.ts"></script>

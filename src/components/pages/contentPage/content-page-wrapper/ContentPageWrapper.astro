@@ -1,0 +1,18 @@
+---
+import type { Document } from "@contentful/rich-text-types";
+import { documentToHtmlString } from "@contentful/rich-text-html-renderer";
+
+interface Props {
+  title: string;
+  content: Document;
+}
+
+const { title, content } = Astro.props;
+
+const htmlContent = documentToHtmlString(content);
+---
+
+<div class="container-small mt-8">
+  <h1>{title}</h1>
+  <div set:html={htmlContent} />
+</div>

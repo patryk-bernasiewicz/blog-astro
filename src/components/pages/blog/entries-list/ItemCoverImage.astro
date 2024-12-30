@@ -22,7 +22,8 @@ const imageHeight = Number(height) ?? Math.floor((imageWidth * 9) / 16);
   height={imageHeight}
   class={cn(
     "hidden md:block",
-    "rounded-lg w-full aspect-[16/9] object-cover lazy-image md:max-w-96",
+    "rounded-lg w-full aspect-[16/9] object-cover md:max-w-96",
     className
   )}
+  loading="lazy"
 />

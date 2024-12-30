@@ -33,6 +33,8 @@ export const getSingleBlogEntryStaticPaths =
         excerpt: item.fields.excerpt,
         body: item.fields.body,
         coverImage: item.fields.coverImage,
+        createdAt: item.sys.createdAt,
+        updatedAt: item.sys.updatedAt,
       } as BlogEntryProps,
     }));
   };
@@ -69,6 +71,8 @@ export const getPaginatedBlogPosts = async (
       ? (item.fields
           .coverImage as unknown as BlogPostSkeleton["fields"]["coverImage"])
       : undefined,
+    createdAt: item.sys.createdAt,
+    updatedAt: item.sys.updatedAt,
   })) as BlogPost[];
 
   return paginate(items, { pageSize: BLOG_PAGE_SIZE });
