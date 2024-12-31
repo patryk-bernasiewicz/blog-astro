@@ -102,9 +102,30 @@ const bodyHtmlContent = documentToHtmlString(body, options);
 <script is:inline>
   window.Prism = window.Prism || {};
   Prism.manual = true;
-  document.addEventListener("astro:page-load", () => Prism.highlightAll());
+  document.addEventListener("astro:page-load", () => {
+    console.log("===== Prism: ", Prism);
+    Prism.highlightAll();
+  });
 </script>
 <script
   is:inline
   src="https://cdnjs.cloudflare.com/ajax/libs/prism/9000.0.1/prism.min.js"
+  integrity="sha512-UOoJElONeUNzQbbKQbjldDf9MwOHqxNz49NNJJ1d90yp+X9edsHyJoAs6O4K19CZGaIdjI5ohK+O2y5lBTW6uQ=="
+  crossorigin="anonymous"
+  referrerpolicy="no-referrer"
   data-manual></script>
+<script
+  src="https://cdnjs.cloudflare.com/ajax/libs/prism/9000.0.1/components/prism-typescript.min.js"
+  integrity="sha512-Hb168WC7SiCJ1GlGPHBb5ol0ResC6n5wu+5V8FTT5inC5ajLgBSm2hpQBvDq1YG2KqXr7UanlfQqRy6VEb1/kQ=="
+  crossorigin="anonymous"
+  referrerpolicy="no-referrer"></script>
+<script
+  src="https://cdnjs.cloudflare.com/ajax/libs/prism/9000.0.1/components/prism-jsx.min.js"
+  integrity="sha512-02Ybjxfrp2RGVCd29o1Didkx6lAD2yQRW4vOqCzpEWsqfRay1FhN6G4FFPSGu6ER01RAWjLPVraD9tixC5Sbow=="
+  crossorigin="anonymous"
+  referrerpolicy="no-referrer"></script>
+<script
+  src="https://cdnjs.cloudflare.com/ajax/libs/prism/9000.0.1/components/prism-yaml.min.js"
+  integrity="sha512-epBuSQcDNi/0lmCXr7cGjqWcfnzXe4m/GdIFFNDcQ7v/JF4H8I+l4wmVQiYO6NkLGSDo3LR7HaUfUL/5sjWtXg=="
+  crossorigin="anonymous"
+  referrerpolicy="no-referrer"></script>
