@@ -1,6 +1,10 @@
 ---
 import Layout from "@layouts/BlogLayout.astro";
-import { contentfulClient, type ContentfulLocale } from "@lib/contentful";
+import {
+  contentfulClient,
+  languageToContentfulLocale,
+  type ContentfulLocale,
+} from "@lib/contentful";
 import { Language, type PageContentSkeleton } from "@types";
 import { getCustomPageStaticPaths } from "@lib/pagesStaticPathsGenerators";
 import ContentPageWrapper from "@components/pages/contentPage/content-page-wrapper/ContentPageWrapper.astro";
@@ -11,11 +15,14 @@ const { slug } = Astro.params;
 const entries = await contentfulClient.getEntries<PageContentSkeleton>({
   content_type: "pageContent",
   "fields.slug": String(slug),
+  locale: languageToContentfulLocale.pl,
 });
 const entry = await contentfulClient.getEntry<
   PageContentSkeleton,
   ContentfulLocale
->(entries.items[0].sys.id);
+>(entries.items[0].sys.id, {
+  locale: languageToContentfulLocale.pl,
+});
 ---
 
 <Layout

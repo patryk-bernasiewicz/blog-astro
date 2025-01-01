@@ -1,5 +1,9 @@
 ---
-import { contentfulClient, type ContentfulLocale } from "@lib/contentful";
+import {
+  contentfulClient,
+  languageToContentfulLocale,
+  type ContentfulLocale,
+} from "@lib/contentful";
 import Layout from "@layouts/BlogLayout.astro";
 import { Language, type PageContentSkeleton } from "@types";
 import { getCustomPageStaticPaths } from "@lib/pagesStaticPathsGenerators";
@@ -11,6 +15,7 @@ const { slug } = Astro.params;
 const entries = await contentfulClient.getEntries<PageContentSkeleton>({
   content_type: "pageContent",
   "fields.slug": String(slug),
+  locale: languageToContentfulLocale.en,
 });
 const entry = await contentfulClient.getEntry<
   PageContentSkeleton,
