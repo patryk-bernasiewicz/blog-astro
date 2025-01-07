@@ -64,6 +64,10 @@ export const parseContentfulContentOptions: Options = {
       `<a href="${node.data.uri}" class="text-primary hover:underline">${next(
         node.content
       )}</a>`,
+    [BLOCKS.OL_LIST]: (node, next) =>
+      `<ol class="list-decimal ml-8 mb-4 leading-3">${next(node.content)}</ol>`,
+    [BLOCKS.UL_LIST]: (node, next) =>
+      `<ul class="list-disc ml-8 mb-4 leading-3">${next(node.content)}</ul>`,
   },
   renderMark: {
     [MARKS.CODE]: (text) => {
