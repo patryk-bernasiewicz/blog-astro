@@ -11,8 +11,6 @@
   },
   "dependencies": {
     "@astrojs/check": "^0.9.4",
-    "@astrojs/mdx": "^4.0.3",
-    "@astrojs/prism": "^3.2.0",
     "@astrojs/rss": "^4.0.10",
     "@astrojs/sitemap": "^3.2.1",
     "@astrojs/tailwind": "^5.1.4",
@@ -21,6 +19,7 @@
     "astro-icon": "^1.1.4",
     "contentful": "^10.15.1",
     "postcss-import": "^16.1.0",
+    "prismjs": "^1.29.0",
     "tailwind-merge": "^2.5.5",
     "tailwindcss": "^3.4.15",
     "typescript": "^5.7.2"
