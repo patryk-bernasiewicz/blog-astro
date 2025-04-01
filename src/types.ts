@@ -19,6 +19,8 @@ export type BlogPostSkeleton = {
     body: contentful.EntryFieldTypes.RichText;
     slug: contentful.EntryFieldTypes.Text;
     coverImage: contentful.Asset[];
+    coverImageWidth?: number;
+    coverImageHeight?: number;
     createdAt: Date | string;
     updatedAt: Date | string;
   };

@@ -9,11 +9,15 @@ type Props = InferGetStaticPropsType<typeof getStaticPaths>;
 
 export const getStaticPaths = getSingleBlogEntryStaticPaths(Language.en);
 
-const { title, body, coverImage } = Astro.props;
+const { title, body, excerpt, coverImage, coverImageWidth, coverImageHeight } =
+  Astro.props;
 ---
 
 <BlogSingleEntry
   title={title}
+  excerpt={excerpt}
   body={body}
   coverImageUrl={coverImage?.[0]?.fields.file?.url}
+  coverImageWidth={coverImageWidth}
+  coverImageHeight={coverImageHeight}
 />

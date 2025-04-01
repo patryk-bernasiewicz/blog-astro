@@ -1,5 +1,5 @@
 ---
-import { getRelativeLocaleUrl } from 'astro:i18n';
+import { getRelativeLocaleUrl } from "astro:i18n";
 import { Icon } from "astro-icon/components";
 
 import { SITE_TITLE } from "@consts";
@@ -8,7 +8,7 @@ import ThemeSwitch from "@components/ThemeSwitch.astro";
 import LanguageSwitch from "@components/LanguageSwitch.astro";
 import { cn } from "@lib/tailwind";
 import { getLanguageFromUrl } from "@lib/getLanguageFromUrl";
-import { getPagesList } from '@lib/pagesStaticPathsGenerators';
+import { getPagesList } from "@lib/pagesStaticPathsGenerators";
 import { getTranslationsByLanguage } from "@i18n/utils";
 
 const userLanguage = getLanguageFromUrl(Astro.url);
@@ -25,7 +25,7 @@ const pages = await getPagesList(userLanguage);
 >
   <nav class="container flex items-center">
     <h1 class="mr-2 text-xl">
-      <a href={getRelativeLocaleUrl(userLanguage, '/blog/1')}>{SITE_TITLE}</a>
+      <a href={getRelativeLocaleUrl(userLanguage, "/blog/1")}>{SITE_TITLE}</a>
     </h1>
     <div
       class={cn(
@@ -48,7 +48,9 @@ const pages = await getPagesList(userLanguage);
           <div class="mt-4 md:m-0">
             <ThemeSwitch />
           </div>
-          <ul class="order-1 mb-2 flex flex-col gap-4 md:order-[unset] md:flex-row md:items-center md:mb-0">
+          <ul
+            class="order-1 mb-2 flex flex-col gap-4 md:order-[unset] md:flex-row md:items-center md:mb-0"
+          >
             <li>
               <HeaderLink href="/blog/1">Blog</HeaderLink>
             </li>
@@ -77,13 +79,13 @@ const pages = await getPagesList(userLanguage);
 </header>
 <script is:inline data-astro-rerun>
   (() => {
-    const header = document.getElementById('header');
+    const header = document.getElementById("header");
     const menu = document.getElementById("menu");
     const menuButton = document.querySelector("button");
     const menuExpander = document.getElementById("menu-expander");
 
     let scrollTimer;
-    
+
     const debouncedScrollGuard = () => {
       clearTimeout(scrollTimer);
 
@@ -93,18 +95,18 @@ const pages = await getPagesList(userLanguage);
 
       scrollTimer = setTimeout(() => {
         if (window.scrollY > 0) {
-          header.classList.add('scrolled-down');
+          header.classList.add("scrolled-down");
         } else {
-          header.classList.remove('scrolled-down');
+          header.classList.remove("scrolled-down");
         }
       }, 50);
-    }
+    };
     debouncedScrollGuard();
-    window.addEventListener('scroll', debouncedScrollGuard);
+    window.addEventListener("scroll", debouncedScrollGuard);
 
     if (menu && menuButton && menuExpander) {
       menuButton.addEventListener("click", () => {
-        if (menu.classList.contains('!grid-rows-[0fr]')) {
+        if (menu.classList.contains("!grid-rows-[0fr]")) {
           menu.classList.remove("!grid-rows-[0fr]");
           menuExpander.classList.remove("invisible");
         } else {

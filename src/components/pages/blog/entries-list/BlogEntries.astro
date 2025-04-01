@@ -36,13 +36,13 @@ const title = translations.pages.ENTRIES_PAGE_TITLE.replace(
             <li>
               <a
                 href={`${getRelativeLocaleUrl(userLanguage, `/blog/entry/${entry.slug}`)}?page=${page.currentPage}`}
-                class="link flex flex-col gap-4 group md:gap-6 md:flex-row"
+                class="link flex flex-col gap-4 group md:gap-6 md:flex-row group"
               >
                 <div class="flex flex-col gap-2">
-                  <h2 class="text-2xl text-brandGray-300 group-hover:text-primary">
+                  <h2 class="text-2xl text-brandGray-300 group-hover:text-primary transition-colors duration-200 ease-in-out">
                     {entry.title}
                   </h2>
-                  <div class="flex items-center gap-2 text-sm text-brandGray-400">
+                  <div class="flex items-center gap-2 text-sm text-brandGray-400/60 group-hover:text-brandGray-400 transition-colors duration-200 ease-in-out">
                     {entry.createdAt && (
                       <FormattedDate
                         date={new Date(entry.createdAt)}
@@ -56,7 +56,7 @@ const title = translations.pages.ENTRIES_PAGE_TITLE.replace(
                       />
                     )}
                   </div>
-                  <div class="text-body-dark dark:text-body-light">
+                  <div class="text-body-dark/80 group-hover:text-body-dark dark:text-body-light/80 dark:group-hover:text-body-light transition-colors duration-200 ease-in-out">
                     {entry.excerpt}
                   </div>
                 </div>

@@ -16,6 +16,8 @@ export interface BlogEntryProps {
   excerpt: Document;
   body: Document;
   coverImage: Asset<undefined, string>[];
+  coverImageWidth?: number;
+  coverImageHeight?: number;
 }
 
 export const getSingleBlogEntryStaticPaths =
@@ -33,6 +35,12 @@ export const getSingleBlogEntryStaticPaths =
         excerpt: item.fields.excerpt,
         body: item.fields.body,
         coverImage: item.fields.coverImage,
+        coverImageWidth: item.fields.coverImage
+          ? Number(item.fields.coverImage[0].fields!.file.details.image.width)
+          : undefined,
+        coverImageHeight: item.fields.coverImage
+          ? Number(item.fields.coverImage[0].fields!.file.details.image.height)
+          : undefined,
         createdAt: item.sys.createdAt,
         updatedAt: item.sys.updatedAt,
       } as BlogEntryProps,
@@ -67,10 +75,6 @@ export const getPaginatedBlogPosts = async (
     excerpt: item.fields.excerpt,
     body: item.fields.body,
     slug: item.fields.slug,
-    coverImage: item.fields.coverImage
-      ? (item.fields
-          .coverImage as unknown as BlogPostSkeleton["fields"]["coverImage"])
-      : undefined,
     createdAt: item.sys.createdAt,
     updatedAt: item.sys.updatedAt,
   })) as BlogPost[];

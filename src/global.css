@@ -20,7 +20,7 @@ body {
   h4,
   h5,
   h6 {
-    @apply text-primary font-semibold;
+    @apply text-brandGray-200 font-semibold;
   }
   h1 {
     @apply text-5xl;
@@ -52,11 +52,11 @@ body {
   }
 
   .container {
-    @apply w-full max-w-[1200px] mx-auto px-8;
+    @apply w-full max-w-[1000px] mx-auto px-8;
   }
 
   .container-small {
-    @apply w-full max-w-[800px] mx-auto px-4;
+    @apply w-full max-w-[750px] mx-auto px-4;
   }
 
   button,
@@ -74,9 +74,15 @@ body {
   .blog-content h4,
   .blog-content h5,
   .blog-content h6 {
-    @apply mb-[0.35em] mt-[0.5em];
+    @apply text-brandGray-300 mb-[0.45em] mt-[0.95em];
   }
   .blog-content hr {
     @apply border-b border-brandGray-300 dark:border-brandGray-400 opacity-25;
+  }
+  .blog-content p {
+    @apply mb-4;
+  }
+  .blog-content p:has(+ h1, + h2, + h3, + h4, + h5, + h6) {
+    @apply mb-0;
   }
 }

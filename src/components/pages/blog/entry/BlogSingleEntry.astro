@@ -9,11 +9,21 @@ import { parseContentfulContentOptions } from "@lib/contentful";
 
 interface Props {
   title: string;
+  excerpt: Document;
   body: Document;
   coverImageUrl?: string;
+  coverImageWidth?: number;
+  coverImageHeight?: number;
 }
 
-const { title, body, coverImageUrl } = Astro.props;
+const {
+  title,
+  excerpt,
+  body,
+  coverImageUrl,
+  coverImageWidth,
+  coverImageHeight,
+} = Astro.props;
 
 const bodyHtmlContent = documentToHtmlString(
   body,
@@ -23,7 +33,15 @@ const bodyHtmlContent = documentToHtmlString(
 
 <BlogLayout title={title}>
   <BackButton />
-  {coverImageUrl && <CoverImage url={coverImageUrl} />}
+  {
+    coverImageUrl && (
+      <CoverImage
+        url={coverImageUrl}
+        width={coverImageWidth}
+        height={coverImageHeight}
+      />
+    )
+  }
   <div class="relative container mt-2 mb-0 flex flex-col">
     <h2
       class="text-2xl text-white text-backdrop mx-6 mt-2 mb-4 lg:text-4xl xl:text-6xl"
@@ -31,9 +49,14 @@ const bodyHtmlContent = documentToHtmlString(
       {title}
     </h2>
     <div
-      class="blog-content shadow-lg bg-brandGray-50 bg-opacity-90 dark:bg-brandGray-800 dark:bg-opacity-90 backdrop-blur-sm z-10 mb-0 px-8 pt-6 pb-12"
-      set:html={bodyHtmlContent}
-    />
+      class="blog-content shadow-2xl bg-brandGray-50 bg-opacity-90 dark:bg-brandGray-800 dark:bg-opacity-90 backdrop-blur-sm z-10 mb-4 px-8 pt-6 pb-12"
+    >
+      <div
+        class="mx-auto mt-2 mb-10 max-w-[800px] text-center"
+        set:html={excerpt}
+      />
+      <div set:html={bodyHtmlContent} />
+    </div>
   </div>
 </BlogLayout>
 <script>

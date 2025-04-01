@@ -1,27 +1,31 @@
 ---
 import { cn } from "@lib/tailwind";
+import { Image } from "astro:assets";
 
 interface Props {
   url: string;
+  width?: number;
+  height?: number;
 }
 
-const { url } = Astro.props;
-
-/**
- * Lazy-loaded cover image.
- * It serves as a background for the blog entry title, and has a gradient leading to
- * the background color towards the bottom of its container.
- */
+const { url, width, height } = Astro.props;
 ---
 
-<div
-  class={cn(
-    "relative -mb-[15vh] h-[50vh] w-full overflow-hidden bg-cover",
-    "after:h-64 after:absolute after:left-0 after:bottom-0 after:right-0 after:-mt-64 after:block after:content-[''] after:bg-gradient-to-b",
-    "after:from-transparent after:to-brandGray-50",
-    "after:dark:from-transparent after:dark:to-brandGray-800",
-    "after:w-[calc(100%_+_256px)] after:-mx-32"
-  )}
-  style={`background-image: url('${url}')`}
->
+<div class="relative -mb-[20vh] mx-auto w-full">
+  <div
+    class={cn(
+      "after:h-64 after:absolute after:left-0 after:bottom-0 after:right-0 after:-mt-64 after:block after:content-[''] after:bg-gradient-to-b",
+      "after:from-transparent after:to-brandGray-50",
+      "after:dark:from-transparent after:dark:to-brandGray-800",
+      "after:w-[calc(100%_+_256px)] after:-mx-32"
+    )}
+  >
+    <Image
+      src={url}
+      alt="Cover image"
+      width={width || 1280}
+      height={height || 720}
+      class="w-full"
+    />
+  </div>
 </div>

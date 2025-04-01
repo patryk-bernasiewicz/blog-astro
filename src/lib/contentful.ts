@@ -21,14 +21,10 @@ export const languageToContentfulLocale: Record<Language, ContentfulLocale> = {
 
 export const parseContentfulContentOptions: Options = {
   renderNode: {
-    [BLOCKS.PARAGRAPH]: (node, next) =>
-      `<p class="mb-4">${next(node.content)}</p>`,
-    [BLOCKS.HEADING_1]: (node, next) =>
-      `<h1 class="text-lg md:text-2xl mb-2">${next(node.content)}</h1>`,
-    [BLOCKS.HEADING_2]: (node, next) =>
-      `<h2 class="text-md md:text-lg">${next(node.content)}</h2>`,
-    [BLOCKS.HEADING_3]: (node, next) =>
-      `<h3 class="text-md md:text-xl">${next(node.content)}</h3>`,
+    [BLOCKS.PARAGRAPH]: (node, next) => `<p>${next(node.content)}</p>`,
+    [BLOCKS.HEADING_1]: (node, next) => `<h1>${next(node.content)}</h1>`,
+    [BLOCKS.HEADING_2]: (node, next) => `<h2>${next(node.content)}</h2>`,
+    [BLOCKS.HEADING_3]: (node, next) => `<h3>${next(node.content)}</h3>`,
     [BLOCKS.EMBEDDED_ASSET]: (node) => {
       const { title, description, file } = node.data.target.fields;
       return `
