@@ -1,12 +1,7 @@
 import type { GetStaticPaths, PaginateFunction } from "astro";
 
 import { contentfulClient, languageToContentfulLocale } from "@lib/contentful";
-import {
-  Language,
-  type BlogPost,
-  type BlogPostSkeleton,
-  type PageContentSkeleton,
-} from "@types";
+import { Language, type BlogPost, type PageContentSkeleton } from "@types";
 import { BLOG_PAGE_SIZE } from "@consts";
 import type { Document } from "@contentful/rich-text-types";
 import type { Asset } from "contentful";
@@ -15,15 +10,17 @@ export interface BlogEntryProps {
   title: string;
   excerpt: Document;
   body: Document;
-  coverImage: Asset<undefined, string>[];
+  coverImage?: Asset[];
   coverImageWidth?: number;
   coverImageHeight?: number;
+  createdAt: string;
+  updatedAt: string;
 }
 
 export const getSingleBlogEntryStaticPaths =
   (language: Language = Language.pl) =>
   async () => {
-    const entries = await contentfulClient.getEntries<BlogPostSkeleton>({
+    const entries = await contentfulClient.getEntries({
       content_type: "blogPost",
       locale: languageToContentfulLocale[language],
     });
@@ -36,10 +33,10 @@ export const getSingleBlogEntryStaticPaths =
         body: item.fields.body,
         coverImage: item.fields.coverImage,
         coverImageWidth: item.fields.coverImage
-          ? Number(item.fields.coverImage[0].fields!.file.details.image.width)
+          ? Number(item.fields.coverImage[0].fields.file.details.image.width)
           : undefined,
         coverImageHeight: item.fields.coverImage
-          ? Number(item.fields.coverImage[0].fields!.file.details.image.height)
+          ? Number(item.fields.coverImage[0].fields.file.details.image.height)
           : undefined,
         createdAt: item.sys.createdAt,
         updatedAt: item.sys.updatedAt,
@@ -65,7 +62,7 @@ export const getPaginatedBlogPosts = async (
   paginate: PaginateFunction,
   language: Language = Language.pl
 ) => {
-  const entries = await contentfulClient.getEntries<BlogPostSkeleton>({
+  const entries = await contentfulClient.getEntries({
     content_type: "blogPost",
     locale: languageToContentfulLocale[language],
   });

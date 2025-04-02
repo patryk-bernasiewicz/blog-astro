@@ -3,6 +3,7 @@ import type { InferGetStaticPropsType } from "astro";
 
 import BlogSingleEntry from "@components/pages/blog/entry/BlogSingleEntry.astro";
 import { getSingleBlogEntryStaticPaths } from "@lib/pagesStaticPathsGenerators";
+import { extractCoverImageUrl } from "@lib/extractCoverImageUrl";
 import { Language } from "@types";
 
 type Props = InferGetStaticPropsType<typeof getStaticPaths>;
@@ -11,13 +12,15 @@ export const getStaticPaths = getSingleBlogEntryStaticPaths(Language.pl);
 
 const { title, body, excerpt, coverImage, coverImageWidth, coverImageHeight } =
   Astro.props;
+
+const coverImageUrl = extractCoverImageUrl(coverImage?.[0]?.fields.file?.url);
 ---
 
 <BlogSingleEntry
   title={title}
   excerpt={excerpt}
   body={body}
-  coverImageUrl={coverImage?.[0]?.fields.file?.url}
+  coverImageUrl={coverImageUrl}
   coverImageWidth={coverImageWidth}
   coverImageHeight={coverImageHeight}
 />

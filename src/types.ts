@@ -11,21 +11,6 @@ export type BlogPost = {
   updatedAt: Date | string;
 };
 
-export type BlogPostSkeleton = {
-  contentTypeId: "blogPost";
-  fields: {
-    title: contentful.EntryFieldTypes.Text;
-    excerpt: contentful.EntryFieldTypes.RichText;
-    body: contentful.EntryFieldTypes.RichText;
-    slug: contentful.EntryFieldTypes.Text;
-    coverImage: contentful.Asset[];
-    coverImageWidth?: number;
-    coverImageHeight?: number;
-    createdAt: Date | string;
-    updatedAt: Date | string;
-  };
-};
-
 export type PageContentSkeleton = {
   contentTypeId: "pageContent";
   fields: {
