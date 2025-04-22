@@ -82,6 +82,11 @@ body {
   .blog-content p {
     @apply mb-4;
   }
+  .blog-content p > code {
+    @apply font-mono rounded-md px-1.5 py-[0.15em] text-sm inline-block;
+    @apply bg-brandGray-200 text-brandGray-900;
+    @apply dark:bg-brandGray-700/50 dark:text-brandGray-200/75;
+  }
   .blog-content p:has(+ h1, + h2, + h3, + h4, + h5, + h6) {
     @apply mb-0;
   }

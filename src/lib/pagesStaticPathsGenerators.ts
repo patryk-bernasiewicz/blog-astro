@@ -7,6 +7,7 @@ import type { Document } from "@contentful/rich-text-types";
 import type { Asset } from "contentful";
 
 export interface BlogEntryProps {
+  id: string;
   title: string;
   excerpt: Document;
   body: Document;
@@ -28,6 +29,7 @@ export const getSingleBlogEntryStaticPaths =
     return entries.items.map((item) => ({
       params: { slug: item.fields.slug },
       props: {
+        id: item.sys.id,
         title: item.fields.title,
         excerpt: item.fields.excerpt,
         body: item.fields.body,

@@ -61,9 +61,9 @@ export const parseContentfulContentOptions: Options = {
         node.content
       )}</a>`,
     [BLOCKS.OL_LIST]: (node, next) =>
-      `<ol class="list-decimal ml-8 mb-4 leading-3">${next(node.content)}</ol>`,
+      `<ol class="list-decimal ml-8 mb-4 leading-6">${next(node.content)}</ol>`,
     [BLOCKS.UL_LIST]: (node, next) =>
-      `<ul class="list-disc ml-8 mb-4 leading-3">${next(node.content)}</ul>`,
+      `<ul class="list-disc ml-8 mb-4 leading-6">${next(node.content)}</ul>`,
   },
   renderMark: {
     [MARKS.CODE]: (text) => {
