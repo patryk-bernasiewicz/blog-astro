@@ -8,5 +8,3 @@ services:
     ports:
       - "3660:3660"
     restart: unless-stopped
-    env_file:
-      - .env

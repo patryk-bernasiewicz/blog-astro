@@ -7,9 +7,7 @@ COPY .npmrc ./
 RUN npm install -g pnpm
 RUN pnpm install
 COPY . .
-COPY .env ./
 RUN pnpm build
-RUN rm -rf .env
 
 # Etap serwowania
 FROM nginx:alpine
