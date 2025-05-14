@@ -4,35 +4,40 @@ on:
   push:
     branches:
       - main
+  workflow_dispatch:
 
 jobs:
   deploy:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout repository
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
 
       - name: Set up SSH Agent
-        uses: webfactory/ssh-agent@v0.9.1
+        uses: webfactory/ssh-agent@v0.9.0
         with:
           ssh-private-key: ${{ secrets.VPS_SSH_PRIVATE_KEY }}
 
       - name: Add VPS host key to known_hosts
         run: |
           mkdir -p ~/.ssh
-          ssh-keyscan -p ${{ secrets.VPS_PORT }} -H ${{ secrets.VPS_HOST }} >> ~/.ssh/known_hosts
+          chmod 700 ~/.ssh
+          ssh-keyscan -p ${{ secrets.VPS_PORT || 22 }} -H ${{ secrets.VPS_HOST }} >> ~/.ssh/known_hosts
+          chmod 600 ~/.ssh/known_hosts
 
       - name: Set up Docker Context for VPS
         run: |
-          docker context create vps --docker "host=ssh://${{ secrets.VPS_USER }}@${{ secrets.VPS_HOST }}:${{ secrets.VPS_PORT }}"
+          docker context rm vps || true 
+          docker context create vps --docker "host=ssh://${{ secrets.VPS_USER }}@${{ secrets.VPS_HOST }}:${{ secrets.VPS_PORT || 22 }}"
           docker context use vps
           echo "Verifying Docker context connection..."
-          docker --context vps ps # This command will attempt to list containers on the remote host
+          docker --context vps ps
 
       - name: Deploy with Docker Compose on VPS
         run: |
-          docker compose -f compose.prod.yml up -d --build
+          docker --context vps compose -f compose.prod.yml up -d --build --remove-orphans
 
       - name: Remove Docker context
         if: always()
-        run: docker context rm vps
+        run: |
+          docker context rm vps || true # Dodano || true na wypadek, gdyby kontekst nie istniał
