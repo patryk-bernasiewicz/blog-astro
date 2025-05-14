@@ -1,0 +1,25 @@
+name: Deploy to VPS via Docker Context
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+
+      - name: Set up Docker Context for VPS
+        run: |
+          docker context create vps --docker "host=ssh://${{ secrets.VPS_USER }}@${{ secrets.VPS_HOST }}:${{ secrets.VPS_PORT }}"
+          docker context use vps
+
+      - name: Deploy with Docker Compose on VPS
+        run: |
+          docker compose -f compose.prod.yml up -d --build
+
+      - name: Remove Docker context
+        run: docker context rm vps
