@@ -34,6 +34,10 @@ jobs:
           docker --context vps ps
 
       - name: Deploy with Docker Compose on VPS
+        env:
+          COMPOSE_BAKE: "true"
+          CONTENTFUL_SPACE_ID: ${{ secrets.CONTENTFUL_SPACE_ID }}
+          CONTENTFUL_DELIVERY_TOKEN: ${{ secrets.CONTENTFUL_DELIVERY_TOKEN }}
         run: |
           docker --context vps compose -f compose.prod.yml up -d --build --remove-orphans
 
