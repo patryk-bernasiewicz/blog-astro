@@ -1,0 +1,12 @@
+services:
+  blog:
+    environment:
+      - NODE_ENV=production
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - "3660:3660"
+    restart: unless-stopped
+    env_file:
+      - .env
