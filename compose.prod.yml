@@ -1,10 +1,18 @@
 services:
   blog:
     environment:
-      - NODE_ENV=production
+      NODE_ENV: production
+      CONTENTFUL_SPACE_ID: ${CONTENTFUL_SPACE_ID}
+      CONTENTFUL_DELIVERY_TOKEN: ${CONTENTFUL_DELIVERY_TOKEN}
+      CONTENTFUL_PREVIEW_TOKEN: ${CONTENTFUL_PREVIEW_TOKEN}
     build:
       context: .
       dockerfile: Dockerfile
+      args:
+        CONTENTFUL_SPACE_ID: ${CONTENTFUL_SPACE_ID}
+        CONTENTFUL_DELIVERY_TOKEN: ${CONTENTFUL_DELIVERY_TOKEN}
+        CONTENTFUL_PREVIEW_TOKEN: ${CONTENTFUL_PREVIEW_TOKEN}
+        NODE_ENV: production
     ports:
       - "3660:3660"
     restart: unless-stopped
