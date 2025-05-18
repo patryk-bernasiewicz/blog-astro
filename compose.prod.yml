@@ -1,18 +1,9 @@
 services:
   blog:
-    environment:
-      NODE_ENV: production
-      CONTENTFUL_SPACE_ID: ${CONTENTFUL_SPACE_ID}
-      CONTENTFUL_DELIVERY_TOKEN: ${CONTENTFUL_DELIVERY_TOKEN}
-      CONTENTFUL_PREVIEW_TOKEN: ${CONTENTFUL_PREVIEW_TOKEN}
-    build:
-      context: .
-      dockerfile: Dockerfile
-      args:
-        CONTENTFUL_SPACE_ID: ${CONTENTFUL_SPACE_ID}
-        CONTENTFUL_DELIVERY_TOKEN: ${CONTENTFUL_DELIVERY_TOKEN}
-        CONTENTFUL_PREVIEW_TOKEN: ${CONTENTFUL_PREVIEW_TOKEN}
-        NODE_ENV: production
+    image: ghcr.io/patryk-bernasiewicz/blog-astro:190525_0141
     ports:
-      - "3660:3660"
+      - target: 3660
+        published: 3660
+        protocol: tcp
+        mode: host
     restart: unless-stopped
