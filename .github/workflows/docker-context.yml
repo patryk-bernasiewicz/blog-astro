@@ -42,6 +42,11 @@ jobs:
           push: true
           tags: ghcr.io/${{ github.repository }}:${{ env.DATE }}
 
+      - name: Add VPS to known_hosts
+        run: |
+          mkdir -p ~/.ssh
+          ssh-keyscan ${{ secrets.VPS_KEYSCAN_ARGS }} >> ~/.ssh/known_hosts
+
       - name: Create docker context with SSH
         uses: arwynfr/actions-docker-context@v2
         with:
