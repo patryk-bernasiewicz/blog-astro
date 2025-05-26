@@ -56,4 +56,4 @@ jobs:
           use_context: true
 
       - name: Deploy blog via docker context
-        run: docker stack deploy --with-registry-auth -c compose.prod.yml blog-astro
+        run: IMAGE_TAG=${{ env.DATE }} docker stack deploy --with-registry-auth -c compose.prod.yml blog-astro

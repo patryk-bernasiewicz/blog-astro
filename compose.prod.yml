@@ -1,6 +1,6 @@
 services:
   blog:
-    image: ghcr.io/patryk-bernasiewicz/blog-astro:190525_0141
+    image: ghcr.io/patryk-bernasiewicz/blog-astro:${IMAGE_TAG}
     ports:
       - target: 3660
         published: 3660
