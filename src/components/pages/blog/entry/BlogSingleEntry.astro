@@ -1,11 +1,12 @@
 ---
 import { documentToHtmlString } from "@contentful/rich-text-html-renderer";
 import { type Document } from "@contentful/rich-text-types";
-import BackButton from "@components/BackButton/BackButton.astro";
 import BlogLayout from "@layouts/BlogLayout.astro";
 
 import CoverImage from "./CoverImage.astro";
 import { parseContentfulContentOptions } from "@lib/contentful";
+import { getLanguageFromUrl } from "@lib/getLanguageFromUrl";
+import { getTranslationsByLanguage } from "@i18n/utils";
 
 interface Props {
   title: string;
@@ -14,7 +15,11 @@ interface Props {
   coverImageUrl?: string;
   coverImageWidth?: number;
   coverImageHeight?: number;
+  switchLocaleLink?: string;
 }
+
+const userLanguage = getLanguageFromUrl(Astro.url);
+const translations = getTranslationsByLanguage(userLanguage);
 
 const {
   title,
@@ -23,7 +28,11 @@ const {
   coverImageUrl,
   coverImageWidth,
   coverImageHeight,
+  switchLocaleLink,
 } = Astro.props;
+
+const switchLocaleLinkWithParams = switchLocaleLink ? 
+  `${switchLocaleLink}${Astro.url.search}` : undefined;
 
 const bodyHtmlContent = documentToHtmlString(
   body,
@@ -32,7 +41,6 @@ const bodyHtmlContent = documentToHtmlString(
 ---
 
 <BlogLayout title={title}>
-  <BackButton />
   {
     coverImageUrl && (
       <CoverImage
@@ -42,17 +50,22 @@ const bodyHtmlContent = documentToHtmlString(
       />
     )
   }
-  <div class="relative container mt-2 mb-0 flex flex-col">
+  <div class="relative container mt-2 mb-0 flex flex-col bg-backgroundDark/80 backdrop-blur-[8px] pt-4">
+    {switchLocaleLinkWithParams && (
+      <a href={switchLocaleLinkWithParams} class="block mb-3">
+        &raquo; {translations.entry.SWITCH_LOCALE_TEXT}
+      </a>
+    )}
     <h2
-      class="text-2xl text-white text-backdrop mx-6 mt-2 mb-4 lg:text-4xl xl:text-6xl"
+      class="text-body-light"
     >
       {title}
     </h2>
     <div
-      class="blog-content shadow-2xl bg-brandGray-50 bg-opacity-90 dark:bg-brandGray-800 dark:bg-opacity-90 backdrop-blur-sm z-10 mb-4 px-8 pt-6 pb-12"
+      class="blog-content z-10 mb-4 pt-6 pb-12"
     >
       <div
-        class="mx-auto mt-2 mb-10 max-w-[800px] text-center"
+        class="mt-2 mb-10 text-lg"
         set:html={excerpt}
       />
       <div set:html={bodyHtmlContent} />

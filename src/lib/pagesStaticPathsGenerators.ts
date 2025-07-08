@@ -16,6 +16,8 @@ export interface BlogEntryProps {
   coverImageHeight?: number;
   createdAt: string;
   updatedAt: string;
+  contrarySlug?: string;
+  switchLocaleLink?: string;
 }
 
 export const getSingleBlogEntryStaticPaths =
@@ -26,24 +28,42 @@ export const getSingleBlogEntryStaticPaths =
       locale: languageToContentfulLocale[language],
     });
 
-    return entries.items.map((item) => ({
-      params: { slug: item.fields.slug },
-      props: {
-        id: item.sys.id,
-        title: item.fields.title,
-        excerpt: item.fields.excerpt,
-        body: item.fields.body,
-        coverImage: item.fields.coverImage,
-        coverImageWidth: item.fields.coverImage
-          ? Number(item.fields.coverImage[0].fields.file.details.image.width)
-          : undefined,
-        coverImageHeight: item.fields.coverImage
-          ? Number(item.fields.coverImage[0].fields.file.details.image.height)
-          : undefined,
-        createdAt: item.sys.createdAt,
-        updatedAt: item.sys.updatedAt,
-      } as BlogEntryProps,
-    }));
+    const contraryLanguage =
+      language === Language.pl ? Language.en : Language.pl;
+    const contraryEntries = await contentfulClient.getEntries({
+      content_type: "blogPost",
+      locale: languageToContentfulLocale[contraryLanguage],
+    });
+
+    return entries.items.map((item) => {
+      const contrarySlug = contraryEntries.items.find((contraryItem) => {
+        return contraryItem.fields.id === item.fields.id;
+      })?.fields.slug;
+      const switchLocaleLink = contrarySlug
+        ? `/${contraryLanguage}/blog/entry/${contrarySlug}`
+        : undefined;
+
+      return {
+        params: { slug: item.fields.slug },
+        props: {
+          id: item.sys.id,
+          title: item.fields.title,
+          excerpt: item.fields.excerpt,
+          body: item.fields.body,
+          coverImage: item.fields.coverImage,
+          coverImageWidth: item.fields.coverImage
+            ? Number(item.fields.coverImage[0].fields.file.details.image.width)
+            : undefined,
+          coverImageHeight: item.fields.coverImage
+            ? Number(item.fields.coverImage[0].fields.file.details.image.height)
+            : undefined,
+          createdAt: item.sys.createdAt,
+          updatedAt: item.sys.updatedAt,
+          contrarySlug,
+          switchLocaleLink,
+        } as BlogEntryProps,
+      };
+    });
   };
 
 export const getCustomPageStaticPaths =

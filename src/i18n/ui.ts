@@ -20,9 +20,9 @@ export const ui: UiTranslations = {
       LABEL: "Przełącz motyw strony",
     },
     languageSwitch: {
-      LANGUAGE_POLISH: "Polski",
-      LANGUAGE_ENGLISH: "Angielski",
-      SWITCH_TO: "Przełącz na",
+      LANGUAGE_POLISH: "Polskiej",
+      LANGUAGE_ENGLISH: "Angielskiej",
+      SWITCH_TO: "Blog w wersji",
     },
     pagination: {
       BUTTON_PREVIOUS: "Poprzednie",
@@ -36,6 +36,9 @@ export const ui: UiTranslations = {
       SOURCE_CODE: "Zobacz kod źródłowy tego bloga na Github",
       COOKIES:
         "Nie zbieram ani nie przechowuję w Twojej przeglądarce żadnych plików cookies, nie gromadzę, nie przechowuję ani nie przetwarzam żadnych Twoich danych osobowych, nie stosuję narzędzi analitycznych ani marketingowych, nie udostępniam żadnych informacji podmiotom trzecim. Jesteś tu całkowicie bezpieczny.",
+    },
+    entry: {
+      SWITCH_LOCALE_TEXT: "Chcesz przeczytać to po angielsku? Tutaj!",
     },
   },
   [Language.en]: {
@@ -52,7 +55,7 @@ export const ui: UiTranslations = {
     languageSwitch: {
       LANGUAGE_POLISH: "Polish",
       LANGUAGE_ENGLISH: "English",
-      SWITCH_TO: "Switch to",
+      SWITCH_TO: "Blog in",
     },
     pagination: {
       BUTTON_PREVIOUS: "Previous",
@@ -66,6 +69,9 @@ export const ui: UiTranslations = {
       SOURCE_CODE: "See the source code of this blog on Github",
       COOKIES:
         "I DO NOT collect or store any cookies in your browser, I DO NOT collect, store, or process any of your personal data, I DO NOT use any analytical or marketing tools, and I DO NOT share any information with third parties. You are completely safe here.",
+    },
+    entry: {
+      SWITCH_LOCALE_TEXT: "Wanna read this in Polish? Here!",
     },
   },
 };

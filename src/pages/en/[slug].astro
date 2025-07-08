@@ -21,6 +21,13 @@ const entry = await contentfulClient.getEntry<
   PageContentSkeleton,
   ContentfulLocale
 >(entries.items[0].sys.id);
+const contraryLocale = languageToContentfulLocale.en;
+const contraryEntry = await contentfulClient.getEntry<
+  PageContentSkeleton,
+  ContentfulLocale
+>(entries.items[0].sys.id, {
+  locale: contraryLocale,
+});
 ---
 
 <Layout
