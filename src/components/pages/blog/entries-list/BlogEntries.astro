@@ -7,7 +7,6 @@ import type { BlogPost } from "@types";
 import { getLanguageFromUrl } from "@lib/getLanguageFromUrl";
 import BlogLayout from "@layouts/BlogLayout.astro";
 import { getTranslationsByLanguage } from "@i18n/utils";
-import { Icon } from "astro-icon/components";
 import FormattedDate from "@components/FormattedDate.astro";
 
 interface Props {
@@ -15,6 +14,7 @@ interface Props {
 }
 
 const userLanguage = getLanguageFromUrl(Astro.url);
+const contraryLocale = userLanguage === "en" ? "pl" : "en";
 const translations = getTranslationsByLanguage(userLanguage);
 
 const { page } = Astro.props;
@@ -22,11 +22,15 @@ const title = translations.pages.ENTRIES_PAGE_TITLE.replace(
   "{page}",
   String(page.currentPage)
 );
+const switchLocaleLink = getRelativeLocaleUrl(
+  contraryLocale,
+  `/blog/${page.currentPage}`
+);
 ---
 
 <BlogLayout title={title}>
   <div
-    class="container-small overflow-hidden flex-grow px-2 pt-6 pb-8 flex flex-col gap-4"
+    class="container overflow-hidden flex-grow px-2 pt-6 pb-8 flex flex-col gap-4"
   >
     <h2>{translations.pages.ENTRIES_PAGE_HEADING}</h2>
     <ul class="flex mt-4 flex-col gap-10 relative">
@@ -39,7 +43,7 @@ const title = translations.pages.ENTRIES_PAGE_TITLE.replace(
                 class="link flex flex-col gap-4 group md:gap-6 md:flex-row group"
               >
                 <div class="flex flex-col gap-2">
-                  <h2 class="text-2xl text-brandGray-300 group-hover:text-primary transition-colors duration-200 ease-in-out">
+                  <h2 class="text-2xl text-body-lessLight group-hover:text-primaryDark transition-colors duration-200 ease-in-out dark:group-hover:text-primaryDark">
                     {entry.title}
                   </h2>
                   <div class="flex items-center gap-2 text-sm text-brandGray-400/60 group-hover:text-brandGray-400 transition-colors duration-200 ease-in-out">
@@ -74,3 +78,9 @@ const title = translations.pages.ENTRIES_PAGE_TITLE.replace(
     nextUrl={page.url.next}
   />
 </BlogLayout>
+<script is:inline define:vars={{ switchLocaleLink }}>
+  document.addEventListener('astro:page-load', () => {
+    console.log('Setting locale switch link:', switchLocaleLink);
+    document.getElementById('locale-switch-link')?.setAttribute('href', switchLocaleLink);
+  });
+</script>

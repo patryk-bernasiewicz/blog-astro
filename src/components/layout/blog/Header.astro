@@ -11,16 +11,19 @@ import { getLanguageFromUrl } from "@lib/getLanguageFromUrl";
 import { getPagesList } from "@lib/pagesStaticPathsGenerators";
 import { getTranslationsByLanguage } from "@i18n/utils";
 
+type Props = {
+  switchLocaleLink?: string;
+};
+
+const { switchLocaleLink } = Astro.props;
+
 const userLanguage = getLanguageFromUrl(Astro.url);
 const translations = getTranslationsByLanguage(userLanguage);
 const pages = await getPagesList(userLanguage);
 ---
 
 <header
-  class={cn(
-    "group h-12 w-full fixed flex z-20 shadow-lg bg-brandGray-50 dark:bg-brandGray-800",
-    "dark:[&.scrolled-down]:bg-brandGray-900 [&.scrolled-down]:h-10"
-  )}
+  class="header-blurred group h-12 w-full fixed flex z-20 shadow-lg"
   id="header"
 >
   <nav class="container flex items-center">
@@ -29,10 +32,8 @@ const pages = await getPagesList(userLanguage);
     </h1>
     <div
       class={cn(
-        "absolute z-10 top-12 group-[.scrolled-down]:top-10 left-0 shadow-lg right-0",
-        "bg-brandGray-50 dark:bg-brandGray-900 grid !grid-rows-[0fr] grid-rows-[1fr] transition-[template-grid-rows] duration-200 overflow-hidden",
+        "absolute z-10 top-12 left-0 shadow-lg right-0 overflow-hidden",
         "md:static md:flex md:flex-row md:items-center md:overflow-visible md:shadow-none md:ml-auto",
-        "md:!bg-transparent"
       )}
       id="menu"
     >
@@ -64,7 +65,7 @@ const pages = await getPagesList(userLanguage);
               ))
             }
           </ul>
-          <LanguageSwitch />
+          <LanguageSwitch switchLocaleLink={switchLocaleLink} />
         </div>
       </div>
     </div>
@@ -79,30 +80,9 @@ const pages = await getPagesList(userLanguage);
 </header>
 <script is:inline data-astro-rerun>
   (() => {
-    const header = document.getElementById("header");
     const menu = document.getElementById("menu");
     const menuButton = document.querySelector("button");
     const menuExpander = document.getElementById("menu-expander");
-
-    let scrollTimer;
-
-    const debouncedScrollGuard = () => {
-      clearTimeout(scrollTimer);
-
-      if (!header) {
-        return;
-      }
-
-      scrollTimer = setTimeout(() => {
-        if (window.scrollY > 0) {
-          header.classList.add("scrolled-down");
-        } else {
-          header.classList.remove("scrolled-down");
-        }
-      }, 50);
-    };
-    debouncedScrollGuard();
-    window.addEventListener("scroll", debouncedScrollGuard);
 
     if (menu && menuButton && menuExpander) {
       menuButton.addEventListener("click", () => {

@@ -2,10 +2,6 @@
 @tailwind components;
 @tailwind base;
 
-body {
-  font-family: "Sen", sans-serif;
-}
-
 @layer base {
   :root:has(#theme-switch:checked) {
     color-scheme: dark;
@@ -14,36 +10,48 @@ body {
     color-scheme: light;
   }
 
+  :root {
+    @apply font-sans;
+  }
+
   h1,
   h2,
   h3,
   h4,
   h5,
   h6 {
-    @apply text-brandGray-200 font-semibold;
+    @apply text-body-dark font-serif font-semibold dark:text-body-light;
   }
   h1 {
-    @apply text-5xl;
+    @apply text-h1;
   }
   h2 {
-    @apply text-4xl;
+    @apply text-h2;
   }
   h3 {
-    @apply text-3xl;
+    @apply text-h3;
   }
   h4 {
-    @apply text-2xl;
+    @apply text-h4;
   }
   h5 {
-    @apply text-xl;
+    @apply text-h5;
   }
   h6 {
-    @apply text-lg;
+    @apply text-h6;
   }
 
   html,
   body {
-    @apply flex flex-col grow min-h-full;
+    @apply text-body flex flex-col grow min-h-full;
+  }
+
+  .caption {
+    @apply text-caption text-body-lessDark dark:text-body-lessLight;
+  }
+
+  blockquote {
+    @apply text-quote text-body-lessDark dark:text-body-lessLight;
   }
 
   body,
@@ -52,11 +60,11 @@ body {
   }
 
   .container {
-    @apply w-full max-w-[1000px] mx-auto px-8;
+    @apply w-full max-w-[50rem] mx-auto px-8;
   }
 
   .container-small {
-    @apply w-full max-w-[750px] mx-auto px-4;
+    @apply w-full max-w-[40rem] mx-auto px-4;
   }
 
   button,
@@ -64,8 +72,8 @@ body {
     @apply focus:ring-4 focus:ring-primary focus-within:ring-4 focus-within:ring-primary focus:outline-none;
   }
 
-  .text-backdrop {
-    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5), 2px 2px 8px rgba(0, 0, 0, 0.8);
+  .blog-content {
+    @apply text-body font-thin;
   }
 
   .blog-content h1,
@@ -74,20 +82,57 @@ body {
   .blog-content h4,
   .blog-content h5,
   .blog-content h6 {
-    @apply text-brandGray-300 mb-[0.45em] mt-[0.95em];
+    @apply font-serif font-medium text-body-lessDark dark:text-body-lessLight;
   }
+  .blog-content h1 {
+    @apply text-h1 mt-14 mb-7;
+  }
+  .blog-content h2 {
+    @apply text-h2 mt-12 mb-6;
+  }
+  .blog-content h3 {
+    @apply text-h3 mt-8 mb-5;
+  }
+  .blog-content h4 {
+    @apply text-h4 mt-6 mb-4;
+  }
+  .blog-content h5 {
+    @apply text-h5 mt-5 mb-3;
+  }
+  .blog-content h6 {
+    @apply text-h6 mt-4 mb-2.5;
+  }
+
   .blog-content hr {
-    @apply border-b border-brandGray-300 dark:border-brandGray-400 opacity-25;
+    @apply border-dashed border-borderDark/50 dark:border-borderLight/50;
   }
   .blog-content p {
     @apply mb-4;
   }
+  .blog-content li > p {
+    @apply mb-0;
+  }
+  .blog-content p > a {
+    @apply font-normal;
+  }
   .blog-content p > code {
-    @apply font-mono rounded-md px-1.5 py-[0.15em] text-sm inline-block;
-    @apply bg-brandGray-200 text-brandGray-900;
-    @apply dark:bg-brandGray-700/50 dark:text-brandGray-200/75;
+    @apply font-mono  rounded-md px-1 py-[0.15em] text-caption inline-block;
+    @apply text-body-lessDark dark:text-body-lessLight;
   }
   .blog-content p:has(+ h1, + h2, + h3, + h4, + h5, + h6) {
     @apply mb-0;
+  }
+
+  @supports (backdrop-filter: blur(0)) {
+    .header-blurred {
+      @apply bg-backgroundLight/50 dark:bg-backgroundDark/50;
+      backdrop-filter: blur(0.25rem);
+    }
+  }
+
+  @supports not (backdrop-filter: blur(0)) {
+    .header-blurred {
+      @apply bg-backgroundLight/80 dark:bg-backgroundDark/80;
+    }
   }
 }

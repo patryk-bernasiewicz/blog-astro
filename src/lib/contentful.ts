@@ -57,7 +57,9 @@ export const parseContentfulContentOptions: Options = {
         </a>`;
     },
     [INLINES.HYPERLINK]: (node, next) =>
-      `<a href="${node.data.uri}" class="text-primary hover:underline">${next(
+      `<a href="${
+        node.data.uri
+      }" class="text-primaryDark dark:text-primary hover:underline">${next(
         node.content
       )}</a>`,
     [BLOCKS.OL_LIST]: (node, next) =>
@@ -77,7 +79,7 @@ export const parseContentfulContentOptions: Options = {
       const language = match[1];
       let code = text.replace(regex, "").trim();
 
-      return `<pre><code class="language-${language}">${code}</code></pre>`;
+      return `<pre><code class="text-sm language-${language}">${code}</code></pre>`;
     },
   },
 };

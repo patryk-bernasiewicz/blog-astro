@@ -7,7 +7,7 @@ const userLanguage = getLanguageFromUrl(Astro.url);
 const translations = getTranslationsByLanguage(userLanguage);
 ---
 
-<footer class="relative bg-brandGray-100 dark:bg-brandGray-900 group pb-2">
+<footer class="relative bg-backgroundLight dark:bg-backgroundDark group pb-2 pt-4 mt-4">
   <div
     class={cn(
       "container flex flex-col-reverse items-center py-8 gap-6 md:py-4 md:flex-row md:justify-between md:items-start",

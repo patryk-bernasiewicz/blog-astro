@@ -37,6 +37,7 @@ const siteComponents = [
   "pagination",
   "header",
   "footer",
+  "entry",
 ] as const;
 
 type ComponentTranslations = {
