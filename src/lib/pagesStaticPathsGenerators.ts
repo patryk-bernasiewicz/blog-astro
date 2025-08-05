@@ -36,9 +36,9 @@ export const getSingleBlogEntryStaticPaths =
     });
 
     return entries.items.map((item) => {
-      const contrarySlug = contraryEntries.items.find((contraryItem) => {
-        return contraryItem.fields.id === item.fields.id;
-      })?.fields.slug;
+      const contrarySlug = contraryEntries.items
+        ?.find((contraryItem) => contraryItem?.fields?.id === item?.fields?.id)
+        ?.fields?.slug || null;
       const switchLocaleLink = contrarySlug
         ? `/${contraryLanguage}/blog/entry/${contrarySlug}`
         : undefined;
